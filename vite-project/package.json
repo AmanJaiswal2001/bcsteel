@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-    "homepage":"https://https://sonateksteels.com",
+    "homepage":"https://sonateksteels.com/backend",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
