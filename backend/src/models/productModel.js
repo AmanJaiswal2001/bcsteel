@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-const productSchema = new mongoose.Schema({
+const productSchema = new mongoose.Schema(
+  {
   name: { type: String, required: true },
 
   type: {
@@ -32,6 +33,13 @@ const productSchema = new mongoose.Schema({
   },
 }
 
-});
+
+
+},
+
+{
+  timestamps: true // ✅ this enables `createdAt` and `updatedAt`
+},
+);
 
 module.exports = mongoose.model('product', productSchema);

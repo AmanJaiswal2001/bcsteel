@@ -22,7 +22,7 @@ const fetchBlogs=async()=>{
     try{
 
         const res=await axios.get(`${BASE_URL}/api/admin/getAllBlog`);
-        // console.log(res.data);
+        console.log(res.data);
         setBlog(res.data);
     }
     catch(err){
