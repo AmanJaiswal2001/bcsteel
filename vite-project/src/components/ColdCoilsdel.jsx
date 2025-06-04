@@ -21,7 +21,7 @@ const [isMobileOpen, setIsMobileOpen] = useState(false);
 
 
 const navigate=useNavigate();
-const isAdmin = localStorage.getItem('isAdmin') === 'true';
+const isAdmin = sessionStorage.getItem('isAdmin') === 'true';
    
   const { id } = useParams();
 

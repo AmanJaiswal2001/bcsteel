@@ -22,7 +22,7 @@ const [isMobileOpen, setIsMobileOpen] = useState(false);
 const { id } = useParams();
 
 const navigate=useNavigate();
-const isAdmin = localStorage.getItem('isAdmin') === 'true';
+const isAdmin = sessionStorage.getItem('isAdmin') === 'true';
    
 
 const { products, loading, error } = useFetchProducts();

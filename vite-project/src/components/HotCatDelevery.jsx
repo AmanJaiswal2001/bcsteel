@@ -8,6 +8,7 @@ import hotrolledproductdata from "./data/hotrolledproductdata"
 import { Hotrolledinfo } from "./Hotrolledinfo";
 import DeleteButton from "./Admin/DeleteButton";
 import useFetchProducts from "../hooks/useFetchProducts";
+import axios from "axios";
 const  BASE_URL=import.meta.env.VITE_BACKEND_LIVE
 const HotCatDelevery = () => {
 
@@ -32,7 +33,7 @@ const navigate=useNavigate();
   const { id } = useParams();
   // const product = cardData[id];
 
-  const isAdmin = localStorage.getItem('isAdmin') === 'true';
+  const isAdmin = sessionStorage.getItem('isAdmin') === 'true';
    
 
 const { products, loading, error } = useFetchProducts();

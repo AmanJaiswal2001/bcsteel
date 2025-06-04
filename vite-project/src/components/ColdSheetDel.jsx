@@ -8,6 +8,7 @@ import hotrolledproductdata from "./data/hotrolledproductdata"
 import { Hotrolledinfo } from "./Hotrolledinfo";
 import useFetchProducts from "../hooks/useFetchProducts";
 import DeleteButton from "./Admin/DeleteButton";
+import axios from "axios";
 const  BASE_URL=import.meta.env.VITE_BACKEND_LIVE
 const ColdSheetDel = () => {
 
@@ -32,7 +33,7 @@ const [isMobileOpen, setIsMobileOpen] = useState(false);
   // const productDetail=hotrolledproductdata[""];
 
   const navigate=useNavigate();
-  const isAdmin = localStorage.getItem('isAdmin') === 'true';
+  const isAdmin = sessionStorage.getItem('isAdmin') === 'true';
   const { products, loading, error } = useFetchProducts();
   if (loading) return <div className="text-center text-3xl font-bold font-poppins pt-20">Loading...</div>;
   if (error) return <div className="text-center text-3xl font-bold font-poppins pt-20 text-red-600">Error loading products</div>;
