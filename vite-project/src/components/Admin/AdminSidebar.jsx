@@ -1,27 +1,185 @@
-import React from 'react';
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
+import { MdDashboard, MdKeyboardArrowLeft, MdEventRepeat } from "react-icons/md";
+import { FaUserCircle } from "react-icons/fa";
+import { FaUserClock, FaCreditCard,FaIdCard } from "react-icons/fa6";
+import { BiSolidBarChartAlt2 } from "react-icons/bi";
+import { RiBillFill, RiMenu5Fill } from "react-icons/ri";
+import { IoChevronDownSharp } from "react-icons/io5";
+import { TbLogout } from "react-icons/tb";
+import { useNavigate, useLocation } from 'react-router-dom';
+import { RiTeamFill } from "react-icons/ri";
 
-export const AdminSidebar = ({ options = [] }) => {
+
+
+const AdminSidebar = () => 
+{
+  
+   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+ 
+
+  
+
+  const isActive = (path) => location.pathname === path;
+
+
+  const toggleSidebar = () =>
+  {
+    setSidebarOpen(!sidebarOpen)
+  }
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleLogout = () =>
+  {
+    // localStorage.removeItem("employeeData")
+    // localStorage.removeItem("token");
+    sessionStorage.removeItem("role");
+    navigate("/adminlogin");
+  };
+
   return (
-    <div className=" h-80 flex flex-col mt-10 justify-center gap-6 p-6">
-      {options.map((option, index) => (
-        <div
-          key={index}
-          className="relative bg-gradient-to-br from-pink-400 via-purple-500 to-indigo-600 rounded-2xl p-8 shadow-2xl transform hover:scale-105 transition-all duration-300 w-72"
-        >
-          <div className="text-center">
-            <button
-              onClick={option.onClick}
-              className="bg-white text-purple-600 font-semibold py-3 px-8 rounded-full hover:bg-gray-50 hover:shadow-lg transform hover:scale-105 transition-all duration-200 active:scale-95"
-            >
-              {option.name}
-            </button>
+
+    <div
+    id='main'
+    className='h-screen'>
+
+      {/* {!sidebarOpen && (
+
+        <button
+        id='openSidebar'
+        onClick={toggleSidebar}
+        className='lg:hidden text-2xl absolute top-5 left-5'>
+          <RiMenu5Fill />
+        </button>
+
+      )} */}
+
+      <div 
+      id='sidebar'
+      className={`lg:w-[244px] bg-[#F5F5F5] lg:rounded-tr-3xl lg:rounded-br-3xl lg:shadow-2xl lg:relative h-screen w-[204px] rounded-tr-[17px] rounded-br-[17px] lg:opacity-100 backdrop-blur-md bg-opacity-40 lg:bg-opacity-100 lg:backdrop-blur-none 
+      ${sidebarOpen ? 'block' : 'hidden'} lg:block fixed z-40`}>
+
+        <button 
+        id='collapse'
+        onClick={toggleSidebar}
+        className='lg:hidden ml-44 mt-5 text-2xl'><MdKeyboardArrowLeft/></button>
+
+        <div 
+        id="heading"
+        className='flex lg:w-[189px] lg:h-[49px] gap-2 lg:mx-auto lg:pt-[50px] w-[194px] h-[43px] mx-6 pt-[20px]'>
+
+          <img 
+          className='w-[42px] h-[43px] '
+          src="./logo.png" 
+          alt="Logo" />
+
+        
+
+        </div>
+
+        <div 
+        id="sidebarButtons"
+        className='lg:w-[80%] flex flex-col  gap-4 lg:h-[50%] mx-auto mb-10'>
+
+          <ul 
+          className='flex flex-col lg:gap-2 gap-6 mx-3 lg:pt-[90px] pt-[60px] lg:mx-0'>
+          
+            <Link 
+            to="/admindashboard"
+            className={`flex items-center lg:h-[40px] h-[30px] rounded-[20px] hover:border hover:border-gray-300 text-center transition-all duration-300 px-3
+            ${isActive("/admindashboard") 
+            ? 'bg-white outline border-none font-bold' 
+            : 'bg-transparent'}`}>
+              <span className='flex items-center gap-2 font-lato lg:text-sm text-xs'>
+                <MdDashboard className='text-xl'/>
+                Dashboard
+              </span>
+            </Link>
+
+            <Link 
+            to="/allProduct"
+            className={`flex items-center w-full lg:h-[40px] h-[30px] rounded-[20px] hover:border hover:border-gray-300 text-center transition-all duration-300 px-3
+              ${isActive("/allProduct") 
+              ? 'bg-white outline border-none font-bold' 
+              : 'bg-transparent'}`}>
+              <span className='flex items-center gap-2 font-lato lg:text-sm text-xs'>
+                <FaUserCircle className='text-xl'/>
+                Product
+              </span>
+            </Link>
+
+            <Link 
+            to="/allblogs"
+            className={`flex items-center w-full lg:h-[40px] h-[30px] rounded-[20px] hover:border hover:border-gray-300 text-center transition-all duration-300 px-3
+              ${isActive("/allblogs") 
+              ? 'bg-white outline border-none font-bold' 
+              : 'bg-transparent'}`}>
+              <span className='flex items-center gap-2 font-lato lg:text-sm text-xs'>
+                <FaIdCard className='text-xl'/>
+                Blogs
+              </span>
+            </Link>
+
+            <Link 
+            to="#"
+            className={`flex items-center w-full lg:h-[40px] h-[30px] rounded-[20px] hover:border hover:border-gray-300 text-center transition-all duration-300 px-3
+              ${isActive("#") 
+              ? 'bg-white outline border-none font-bold' 
+              : 'bg-transparent'}`}>
+              <span className='flex items-center gap-2 font-lato lg:text-sm text-xs'>
+                <FaUserClock className='text-xl'/>
+                Testimonial
+              </span>
+            </Link>
+
+
+            <Link 
+            to="#"
+            className={`flex items-center w-full lg:h-[40px] h-[30px] rounded-[20px] hover:border hover:border-gray-300 text-center transition-all duration-300 px-3
+              ${isActive("#") 
+              ? 'bg-white outline border-none font-bold' 
+              : 'bg-transparent'}`}>
+              <span className='flex items-center gap-2 font-lato lg:text-sm text-xs'>
+                <FaUserClock className='text-xl'/>
+               User
+              </span>
+            </Link>
+
+         
+
+            {/* {payrollDropdownOpen && (
+                <div className="w-[70%] lg:h-[40px] h-[30px] hover:border-gray-300 hover:border rounded-[20px] transition-all duration-300 ml-auto">
+                  <Link to="/employerPayslip" className={`w-full lg:h-[40px] h-[30px] flex items-center pl-2`}>
+                    <span className="flex font-lato lg:text-sm text-xs font-normal gap-2">
+                      <RiBillFill className="text-xl" />
+                      Payslip
+                    </span>
+                  </Link>
+                </div>
+              )} */}
+
+        
+
+            </ul>
+
           </div>
 
-          {/* Decorative blurred elements */}
-          <div className="absolute top-4 right-4 w-20 h-20 bg-white bg-opacity-10 rounded-full blur-xl"></div>
-          <div className="absolute bottom-4 left-4 w-16 h-16 bg-white bg-opacity-5 rounded-full blur-lg"></div>
-        </div>
-      ))}
+        <button 
+        onClick={handleLogout} 
+        className='lg:h-[10%] bg-[#D5EAE7] mt-auto absolute bottom-0 left-0 w-[204px] lg:rounded-br-3xl h-[61px] lg:w-full rounded-br-[17px]'>
+          <span className='lg:w-full lg:h-full flex px-[30%] font-lato font-normal lg:text-base text-sm items-center hover:font-bold'>
+            <TbLogout className='lg:w-[24px] lg:h-[24px] mr-2'/>
+            Logout
+          </span>
+        </button>
+
+      </div>
+
     </div>
-  );
-};
+  )
+}
+
+export default  AdminSidebar

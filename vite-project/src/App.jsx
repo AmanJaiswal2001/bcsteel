@@ -8,6 +8,7 @@ import AddBlog from "./components/Admin/AddBlog";
 import EditBlog from "./components/Admin/EditBlog";
 import { Toaster } from 'react-hot-toast';
 import AllBlog from "./components/AllBlog";
+import AllProduct from "./components/Admin/AllProduct";
 const Nav = lazy(() => import('./components/Nav'));
 const Footer = lazy(() => import('./components/Footer'));
 const PhoneCall = lazy(() => import('./components/PhoneCall'));
@@ -33,9 +34,48 @@ const Blog1 = lazy(() => import('./components/Blog1'));
 const Blog2 = lazy(() => import('./components/Blog2'));
 const Blog3 = lazy(() => import('./components/Blog3'));
 
-const AppLayout = () => {
-  const location = useLocation();
 
+const matchPath = (path, pathname) => {
+  if (path.includes(':id')) {
+    const basePath = path.split('/:id')[0];
+    return pathname.startsWith(basePath);
+  }
+  return pathname === path || pathname.startsWith(path);
+};
+const AppLayout = () => {
+  const location = useLocation();         // ✅ Step 1
+  const pathname = location.pathname;     // ✅ Step 2
+
+
+  const isAdminLogin=sessionStorage.getItem('isAdmin')==="true";
+  // const pathname = location.pathname;
+  const adminOnlyPaths=[
+    "/adminlogin",
+    "/admindashboard",
+    "/addproduct",
+    "/editproduct",
+    "/addBlog",
+    "/editblog"
+  ];
+
+  const shareAdminPaths=["/allblogs","/allProduct","/coilproduct/:id"
+    ,"/product/:id", "/coilproduct/:id", "/coldproductsheet/:id", "/coldproductcoil/:id"
+
+   ,"/blog/:id"
+  ];
+
+  const isAdminRoute =
+  adminOnlyPaths.some(path => matchPath(path, pathname)) ||
+  (isAdminLogin && shareAdminPaths.some(path => matchPath(path, pathname)));
+
+  
+  
+  
+  
+  
+  
+  
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location]);
@@ -50,12 +90,12 @@ const AppLayout = () => {
       }
     >
       <div className="w-full overflow-x-hidden">
-        <Nav />
+      {!isAdminRoute && <Nav />}
         <main className="w-full overflow-x-hidden">
           <Outlet />
         </main>
-        <Footer />
-        <PhoneCall />
+        {!isAdminRoute && <Footer />}
+        {!isAdminRoute && <PhoneCall />}
       </div>
     </Suspense>
   );
@@ -97,7 +137,8 @@ const appRouter = createBrowserRouter([
 // {path:"/addBlog/:id",element:<Blog2/>},
 // {path:"/addBlog/:id",element:<Blog3/>},
 {path:"/editblog/:id",element:<EditBlog/>},
-{path:"/allblogs",element:<AllBlog/>},   
+{path:"/allblogs",element:<AllBlog/>}, 
+{path:"/allproduct",element:<AllProduct/>},   
     ],
   },
 ]);
