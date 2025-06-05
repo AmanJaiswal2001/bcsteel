@@ -96,7 +96,7 @@ const AdminSidebar = () =>
         className='lg:w-[80%] flex flex-col  gap-4 lg:h-[50%] mx-auto '>
 
           <ul 
-          className='flex flex-col lg:gap-2 text-white gap-6 mx-3 lg:pt-[90px] pt-[60px] lg:mx-0'>
+          className='flex flex-col lg:gap-2 text-white gap-6 mx-3  pt-5 lg:mx-0'>
           
             <Link 
             to="/admindashboard"
