@@ -26,7 +26,7 @@ connectDB();
 const app = express();
 
 // Middleware
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 app.use(cors({
     origin: allowedOrigins,
     credentials: true,
