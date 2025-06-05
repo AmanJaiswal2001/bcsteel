@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import useFetchBlog from '../hooks/useFetchBlog';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import AdminSidebar from './Admin/AdminSidebar';
 
 const BASE_URL = import.meta.env.VITE_BACKEND_LIVE;
@@ -35,27 +35,41 @@ const AllBlog = () => {
   // Filtered blog list
   const filteredBlogs = activeKeyword ? keywordMap[activeKeyword] : blog;
 
-
+const navigate=useNavigate();
 
 const isAdmin=sessionStorage.getItem('isAdmin')==='true';
 
   return (
 
-<div className='flex gap-10'>
+<div className='flex overflow-y-hidden h-screen  gap-5'>
   {
     isAdmin &&(
       <AdminSidebar/>
     )
   } 
-<div className="w-full mx-auto px-10 py-28">
+<div className="w-full overflow-y-auto mx-auto  p-10 px-20">
      
-     <h1 className="text-4xl font-bold text-center mb-10">Blogs</h1>
+     <div className='flex justify-between '>
+     <h1 className="text-4xl font-bold text-center ">Blogs({blog.length})</h1>
+     {isAdmin && (
+          <div className="flex  ">
+            <button
+              className="bg-black text-white px-4  rounded "
+              onClick={() => navigate('/addBlog')}
+            >
+             AddBlog
+            </button>
+          </div>
+        )}
+
+     </div>
+    
 
      {loading && <p className="text-center text-gray-500">Loading...</p>}
      {error && <p className="text-center text-red-500">Failed to load blogs</p>}
 
      {/* Keyword Buttons */}
-     <div className="flex flex-wrap justify-center mb-10">
+     <div className="flex flex-wrap justify-center mt-5">
     
      <button
    onClick={() => setActiveKeyword(null)}
@@ -84,7 +98,7 @@ const isAdmin=sessionStorage.getItem('isAdmin')==='true';
      </div>
 
      {/* Blog Cards */}
-     <div className="grid sm:grid-cols-2 grid-cols-1 mb-10 gap-10 h-full">
+     <div className="grid sm:grid-cols-2 grid-cols-1 mt-10 mb-0 gap-10 h-full">
        {filteredBlogs.map((card, index) => (
          <Link
            to={`/blog/${card._id}`}

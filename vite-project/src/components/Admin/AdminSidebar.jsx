@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { MdDashboard, MdKeyboardArrowLeft, MdEventRepeat } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
@@ -17,7 +17,13 @@ const AdminSidebar = () =>
   
    const [sidebarOpen, setSidebarOpen] = useState(false);
 
- 
+   const [adminName, setAdminName] = useState(null);
+   useEffect(() => {
+    const name = sessionStorage.getItem("adminName");
+    setAdminName(name);
+    console.log("Admin Name from sessionStorage (useEffect):", name);
+  
+  }, []);
 
   
 
@@ -31,7 +37,8 @@ const AdminSidebar = () =>
 
   const navigate = useNavigate();
   const location = useLocation();
-
+  // const adminName = sessionStorage.getItem("adminName");
+  
   const handleLogout = () =>
   {
     // localStorage.removeItem("employeeData")
@@ -59,7 +66,7 @@ const AdminSidebar = () =>
 
       <div 
       id='sidebar'
-      className={`lg:w-[244px] bg-[#F5F5F5] lg:rounded-tr-3xl lg:rounded-br-3xl lg:shadow-2xl lg:relative h-screen w-[204px] rounded-tr-[17px] rounded-br-[17px] lg:opacity-100 backdrop-blur-md bg-opacity-40 lg:bg-opacity-100 lg:backdrop-blur-none 
+      className={`lg:w-[244px] bg-black lg:relative h-screen w-[204px]  lg:opacity-100 backdrop-blur-md bg-opacity-40 lg:bg-opacity-100 lg:backdrop-blur-none 
       ${sidebarOpen ? 'block' : 'hidden'} lg:block fixed z-40`}>
 
         <button 
@@ -69,29 +76,33 @@ const AdminSidebar = () =>
 
         <div 
         id="heading"
-        className='flex lg:w-[189px] lg:h-[49px] gap-2 lg:mx-auto lg:pt-[50px] w-[194px] h-[43px] mx-6 pt-[20px]'>
+        className='flex pt-5 px-5'>
 
           <img 
-          className='w-[42px] h-[43px] '
-          src="./logo.png" 
+          className=' '
+          src="/Group 611.png" 
           alt="Logo" />
 
         
 
         </div>
 
+
+        <h1 className='text-white px-10 pt-5 text-lg font-semibold'>
+  Hello,  {adminName || "Admin"}
+</h1>
         <div 
         id="sidebarButtons"
-        className='lg:w-[80%] flex flex-col  gap-4 lg:h-[50%] mx-auto mb-10'>
+        className='lg:w-[80%] flex flex-col  gap-4 lg:h-[50%] mx-auto '>
 
           <ul 
-          className='flex flex-col lg:gap-2 gap-6 mx-3 lg:pt-[90px] pt-[60px] lg:mx-0'>
+          className='flex flex-col lg:gap-2 text-white gap-6 mx-3 lg:pt-[90px] pt-[60px] lg:mx-0'>
           
             <Link 
             to="/admindashboard"
             className={`flex items-center lg:h-[40px] h-[30px] rounded-[20px] hover:border hover:border-gray-300 text-center transition-all duration-300 px-3
             ${isActive("/admindashboard") 
-            ? 'bg-white outline border-none font-bold' 
+            ? 'bg-white text-black outline border-none font-bold' 
             : 'bg-transparent'}`}>
               <span className='flex items-center gap-2 font-lato lg:text-sm text-xs'>
                 <MdDashboard className='text-xl'/>
@@ -103,7 +114,7 @@ const AdminSidebar = () =>
             to="/allProduct"
             className={`flex items-center w-full lg:h-[40px] h-[30px] rounded-[20px] hover:border hover:border-gray-300 text-center transition-all duration-300 px-3
               ${isActive("/allProduct") 
-              ? 'bg-white outline border-none font-bold' 
+              ? 'bg-white text-black outline border-none font-bold' 
               : 'bg-transparent'}`}>
               <span className='flex items-center gap-2 font-lato lg:text-sm text-xs'>
                 <FaUserCircle className='text-xl'/>
@@ -115,7 +126,7 @@ const AdminSidebar = () =>
             to="/allblogs"
             className={`flex items-center w-full lg:h-[40px] h-[30px] rounded-[20px] hover:border hover:border-gray-300 text-center transition-all duration-300 px-3
               ${isActive("/allblogs") 
-              ? 'bg-white outline border-none font-bold' 
+              ? 'bg-white text-black outline border-none font-bold' 
               : 'bg-transparent'}`}>
               <span className='flex items-center gap-2 font-lato lg:text-sm text-xs'>
                 <FaIdCard className='text-xl'/>
@@ -127,7 +138,7 @@ const AdminSidebar = () =>
             to="#"
             className={`flex items-center w-full lg:h-[40px] h-[30px] rounded-[20px] hover:border hover:border-gray-300 text-center transition-all duration-300 px-3
               ${isActive("#") 
-              ? 'bg-white outline border-none font-bold' 
+              ? 'bg-white text-black outline border-none font-bold' 
               : 'bg-transparent'}`}>
               <span className='flex items-center gap-2 font-lato lg:text-sm text-xs'>
                 <FaUserClock className='text-xl'/>
@@ -140,7 +151,7 @@ const AdminSidebar = () =>
             to="#"
             className={`flex items-center w-full lg:h-[40px] h-[30px] rounded-[20px] hover:border hover:border-gray-300 text-center transition-all duration-300 px-3
               ${isActive("#") 
-              ? 'bg-white outline border-none font-bold' 
+              ? 'bg-white text-black outline border-none font-bold' 
               : 'bg-transparent'}`}>
               <span className='flex items-center gap-2 font-lato lg:text-sm text-xs'>
                 <FaUserClock className='text-xl'/>
@@ -169,7 +180,7 @@ const AdminSidebar = () =>
 
         <button 
         onClick={handleLogout} 
-        className='lg:h-[10%] bg-[#D5EAE7] mt-auto absolute bottom-0 left-0 w-[204px] lg:rounded-br-3xl h-[61px] lg:w-full rounded-br-[17px]'>
+        className='lg:h-[10%] bg-white text-black mt-auto absolute bottom-0 left-0 w-full  h-[61px]  '>
           <span className='lg:w-full lg:h-full flex px-[30%] font-lato font-normal lg:text-base text-sm items-center hover:font-bold'>
             <TbLogout className='lg:w-[24px] lg:h-[24px] mr-2'/>
             Logout

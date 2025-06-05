@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import TipTapEditor from './TipTapEditor';
 import toast from 'react-hot-toast';
+import AdminSidebar from './AdminSidebar';
 
 const BASE_URL = import.meta.env.VITE_BACKEND_LIVE;
 
@@ -83,8 +84,18 @@ const AddBlog = () => {
     }
   };
 
+
+  const isAdmin=sessionStorage.getItem('isAdmin')==='true'
+
   return (
-    <div className="max-w-4xl mt-20 mx-auto p-6">
+
+<div className='flex gap-2 h-screen overflow-y-hidden bg-gray-100'>
+
+{isAdmin&&(
+  <AdminSidebar/>
+)}
+
+<div className="w-full  mx-auto p-6 overflow-y-auto bg-white">
       <h1 className="text-3xl font-bold mb-6">Upload Blog Content</h1>
       <form onSubmit={handleSubmit} className="space-y-6">
        {/* Banner Image Upload */}
@@ -93,7 +104,7 @@ const AddBlog = () => {
   <button
     type="button"
     onClick={() => document.getElementById('banerImage').click()}
-    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+    className="bg-black text-white px-4 py-2 rounded hover:bg-blue-700"
   >
     Upload Banner Image
   </button>
@@ -117,7 +128,7 @@ const AddBlog = () => {
   <button
     type="button"
     onClick={() => document.getElementById('sideImage').click()}
-    className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+    className="bg-black text-white px-4 py-2 rounded hover:bg-blue-700"
   >
     Upload Side Image
   </button>
@@ -137,7 +148,7 @@ const AddBlog = () => {
 
         {formData.content.map((block, cIndex) => (
           <div key={cIndex} className="border p-4 rounded bg-gray-50 space-y-4">
-            <h1>Title</h1>
+            <h1 className='font-poppins text-lg font-semibold'>Title</h1>
             <input
               type="text"
               placeholder="Type (max 30 words)"
@@ -151,7 +162,7 @@ const AddBlog = () => {
             )}
 
             <div>
-              <label className="block font-semibold mb-1">Text (Rich Editor)</label>
+              <label className="block font-semibold mb-1 font-poppins">Text (Rich Editor)</label>
               <TipTapEditor
                 value={block.text}
                 onChange={(val) => handleContentChange(cIndex, 'text', val)}
@@ -159,12 +170,12 @@ const AddBlog = () => {
             </div>
 
             <div className="space-y-2">
-              <label className="block font-semibold">Tags</label>
+              <label className="block font-semibold font-poppins">Tags</label>
               {block.items.map((item, iIndex) => (
                 <input
                   key={iIndex}
                   type="text"
-                  placeholder={`Item ${iIndex + 1}`}
+                  placeholder={`tags ${iIndex + 1}`}
                   className="w-full border p-2 rounded"
                   value={item}
                   onChange={(e) => handleItemChange(cIndex, iIndex, e.target.value)}
@@ -174,22 +185,27 @@ const AddBlog = () => {
               <button
                 type="button"
                 onClick={() => addItem(cIndex)}
-                className="text-blue-500 text-sm"
+                className="text-blue-500 font-poppins text-sm"
               >
                 + Add Item
               </button>
             </div>
           </div>
         ))}
-
-        <button
+<div className='flex'>
+<button
           type="submit"
-          className="bg-green-600 text-white px-6 py-2 rounded"
+          className="bg-[#12396d] m-auto w-80 cursor-pointer text-lg font-poppins text-white px-6 py-4 rounded"
         >
           Submit
         </button>
+</div>
+       
       </form>
     </div>
+</div>
+
+   
   );
 };
 

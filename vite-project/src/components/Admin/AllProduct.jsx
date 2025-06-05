@@ -58,21 +58,35 @@ const AllProduct = () => {
     <div className="flex gap-0 h-screen overflow-y-hidden ">
       {isAdmin && <AdminSidebar />}
       <div className="relative overflow-y-auto w-full mt-24 ">
+       
+       <div className='flex justify-between'>
+       
         <h1 className="font-bold md:text-3xl sm:text-2xl text-xl text-[#262626] md:px-10">
-          All Products
+           Products({products.length})
         </h1>
 
+        {isAdmin && (
+          <div className="flex justify-end md:px-10 mt-5">
+            <button
+              className="bg-black text-white px-4 py-2 rounded hover:bg-blue-700"
+              onClick={() => navigate('/addproduct')}
+            >
+              Add Product
+            </button>
+          </div>
+        )}
+        </div>
         {/* Filter Buttons */}
         <div className="flex gap-3 flex-wrap mt-4 md:px-10">
           {filterOptions.map(({ label, value }) => (
             <button
               key={value}
               onClick={() => setFilterType(value)}
-              className={`px-4 py-2 rounded transition-all duration-200 ${
+              className={`px-4 py-2 rounded-full transition-all duration-200 ${
                 filterType === value
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-200 text-gray-800 hover:bg-gray-300'
-              }`}
+                  ? 'bg-black text-white'
+               : 'bg-[#12396d] text-white hover:bg-white hover:text-black hover:outline'
+             }`}
             >
               {label}
             </button>
@@ -80,16 +94,7 @@ const AllProduct = () => {
         </div>
 
         {/* Add Product Button */}
-        {isAdmin && (
-          <div className="flex justify-end md:px-10 mt-5">
-            <button
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-              onClick={() => navigate('/addproduct')}
-            >
-              Add Product
-            </button>
-          </div>
-        )}
+       
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-5 px-5 md:px-10">

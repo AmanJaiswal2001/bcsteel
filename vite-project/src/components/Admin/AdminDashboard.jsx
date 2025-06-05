@@ -24,7 +24,7 @@ const AdminDashboard = () => {
   ];
 
   return (
-    <div className="pt-20 flex bg-gray-100 h-screen ">
+    <div className="pt-0 flex bg-gray-100 h-screen ">
       {/* <h1 className="text-xl p-10 font-bold mb-4">Admin Dashboard</h1> */}
      <div className='h-96'>
      <AdminSidebar  />

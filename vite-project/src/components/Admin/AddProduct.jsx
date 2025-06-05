@@ -3,6 +3,7 @@ import axios from "axios";
 const  BASE_URL=import.meta.env.VITE_BACKEND_LIVE
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import AdminSidebar from './AdminSidebar';
 const AddProduct = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -71,9 +72,18 @@ const navigate=useNavigate();
       setMessage(errorMsg); }
   };
 
+  const isAdmin=sessionStorage.getItem('isAdmin')==='true'
 
   return (
-    <div className="max-w-xl mt-20 mx-auto p-6 bg-white shadow rounded">
+
+    <div className='flex h-screen gap-5 bg-gray-100 overflow-y-hidden'>
+{
+  isAdmin&&(
+    <AdminSidebar/> 
+  )
+}
+<div className='w-full pt-5 mx-auto p-6 bg-gray-100  overflow-y-auto'>
+<div className="w-[60%] mt-5 mx-auto p-6 bg-white  bg-white shadow rounded-2xl">
       <h2 className="text-xl font-bold mb-4">Add Product</h2>
       {error && <p className="text-red-600 mb-2">{error}</p>}
 
@@ -109,7 +119,7 @@ const navigate=useNavigate();
           <button
             type="button"
             onClick={() => fileInputRef.current.click()}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="bg-black text-white px-4 py-2 rounded hover:bg-blue-700"
           >
             Upload  Image
           </button>
@@ -193,15 +203,23 @@ const navigate=useNavigate();
             className="w-full border p-2 rounded"
           />
         </div>
-
-        <button
+<div className='flex'>
+<button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+          className="w-80 m-auto bg-[#12396d] text-white font-poppins py-2 rounded hover:bg-blue-700"
         >
           Save Product
         </button>
+
+</div>
+      
       </form>
     </div>
+</div>
+
+
+    </div>
+   
   );
 };
 

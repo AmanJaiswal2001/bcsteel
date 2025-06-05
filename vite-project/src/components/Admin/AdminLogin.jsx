@@ -23,6 +23,9 @@ const AdminLogin = () => {
       // Store admin flag in localStorage
       if (res.data?.data?.isAdmin) {
         sessionStorage.setItem("isAdmin", "true"); // <-- changed to sessionStorage
+        sessionStorage.setItem("adminName", res?.data?.data?.FullName);
+        console.log("Set adminName:", sessionStorage.getItem("adminName"));
+
       } else {
         sessionStorage.setItem("isAdmin", "false");
       }
@@ -42,6 +45,9 @@ const AdminLogin = () => {
     }
   };
   
+
+//   sessionStorage.setItem("isAdmin", "true");
+// sessionStorage.setItem("adminName", response.data.data.FullName);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
