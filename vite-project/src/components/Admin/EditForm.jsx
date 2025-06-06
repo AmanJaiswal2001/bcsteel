@@ -90,7 +90,7 @@ const EditForm = () => {
       );
       setMessage(res.data.message || "Product updated successfully");
       toast.success('product edit successfully!');
-      navigate('/mildStainless'); // optional: redirect after save
+      // navigate('/mildStainless'); // optional: redirect after save
     } catch (err) {
       setMessage(err.response?.data?.message || "Error updating product");
       toast.error(`Edit failed. Please try again: ${err.response?.data?.error}`);

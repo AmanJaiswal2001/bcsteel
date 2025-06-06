@@ -17,7 +17,7 @@ const AddProduct = () => {
     number:''
   });
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState({});
   const [imageFile, setImageFile] = useState(null);
   const [message, setMessage] = useState("");
   const typeOptions = [
@@ -39,8 +39,72 @@ const navigate=useNavigate();
   const handleFileChange = (e) => {
     setImageFile(e.target.files[0]);
   };
+
+
+
+  const validateForm=()=>{
+
+const newErrors={};
+const numberPattern = /^(\d+(\.\d+)?)(\s*,\s*\d+(\.\d+)?)*$/;
+; // Only digits, commas, spaces
+  const phonePattern = /^\d{10}$/; // Exactly 10 digits
+
+if(!formData.name.trim()) newErrors.name="Name is required";
+if(!formData.type)  newErrors.type="Type is required";
+if(!formData.thickness)
+{
+  newErrors.thickness="Thickness is required";
+
+}else if(
+  !numberPattern.test(formData.thickness)
+){
+  newErrors.thickness="Only number and commans are allowed"
+}
+ 
+if(!formData.width)
+{
+  newErrors.width="Width is required";
+}
+else if(!numberPattern.test(formData.width)){
+
+  newErrors.width="Only number and commans are allowed"
+
+}
+ 
+if(!formData.length)
+  
+  {
+    newErrors.length="Weigth is required";
+  }else if(!numberPattern.test(formData.length)){
+newErrors.length="Only number and commans are allowed"
+  }
+  
+if(!formData.number) 
+{
+newErrors.number="Please must be 10 digits"
+}
+else if(!phonePattern.test(formData.number)){
+  newErrors.number="Phone number must be exactly 10 digits";
+}
+  
+if(!formData.deliveryDays) newErrors.deliveryDays="Delivery days required";
+
+
+setError(newErrors);
+return Object.keys(newErrors).length===0;
+
+  };
+
+
+
+
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if(!validateForm())  return;
     const data = new FormData();
 
     data.append("name", formData.name);
@@ -54,6 +118,15 @@ const navigate=useNavigate();
     if (imageFile) data.append("file", imageFile); // 👈 file key must match multer field name
 
     try {
+
+      // if (!imageFile) {
+      //   const response = await fetch("/1380.jpg"); // from public folder
+      //   const blob = await response.blob();
+      //   const file = new File([blob], "1380.jpg", { type: blob.type });
+      //   data.append("file", file);
+      // } else {
+      //   data.append("file", imageFile);
+      // }
       const res = await axios.post(`${BASE_URL}/api/admin/product/createProduct`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -84,8 +157,8 @@ const navigate=useNavigate();
 }
 <div className='w-full pt-5 mx-auto p-6 bg-gray-100  overflow-y-auto'>
 <div className="w-[60%] mt-5 mx-auto p-6 bg-white  bg-white shadow rounded-2xl">
-      <h2 className="text-xl font-bold mb-4">Add Product</h2>
-      {error && <p className="text-red-600 mb-2">{error}</p>}
+      <h2 className="text-xl font-poppins font-bold mb-4">Add Product</h2>
+      {/* {error && <p className="text-red-600 mb-2">{error}</p>} */}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -97,6 +170,7 @@ const navigate=useNavigate();
             onChange={handleChange}
             className="w-full border p-2 rounded"
           />
+          {error.name&&<p className="text-red-500 text-sm">{error.name}</p>}
         </div>
 
         <div>
@@ -112,6 +186,8 @@ const navigate=useNavigate();
               <option key={type} value={type}>{type}</option>
             ))}
           </select>
+          {error.type && <p className="text-red-500 text-sm">{error.type}</p>}
+            
         </div>
 
         <div>
@@ -147,6 +223,8 @@ const navigate=useNavigate();
             onChange={handleChange}
             className="w-full border p-2 rounded"
           />
+           {error.thickness && <p className="text-red-500 text-sm">{error.thickness}</p>}
+      
         </div>
 
         <div>
@@ -158,10 +236,12 @@ const navigate=useNavigate();
             onChange={handleChange}
             className="w-full border p-2 rounded"
           />
+            {error.width && <p className="text-red-500 text-sm">{error.width}</p>}
+         
         </div>
 
         <div>
-          <label className="block">Length (comma-separated)</label>
+          <label className="block">Weight (comma-separated)</label>
           <input
             type="text"
             name="length"
@@ -169,10 +249,12 @@ const navigate=useNavigate();
             onChange={handleChange}
             className="w-full border p-2 rounded"
           />
+            {error.length && <p className="text-red-500 text-sm">{error.length}</p>}
+         
         </div>
 
         <div>
-          <label className="block">Purchase Now Link</label>
+          <label className="block">Bottom card</label>
           <input
             type="text"
             name="purchaseNow"
@@ -192,6 +274,7 @@ const navigate=useNavigate();
             onChange={handleChange}
             className="w-full border p-2 rounded"
           />
+          {error.number&&<p className="text-red-500 text-sm">{error.number}</p>}
         </div>
         <div>
           <label className="block">Delivery Days *</label>
@@ -202,6 +285,8 @@ const navigate=useNavigate();
             onChange={handleChange}
             className="w-full border p-2 rounded"
           />
+           {error.deliveryDays&&<p className="text-red-500 text-sm">{error.deliveryDays}</p>}
+      
         </div>
 <div className='flex'>
 <button

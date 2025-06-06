@@ -57,7 +57,7 @@ const AllProduct = () => {
   return (
     <div className="flex gap-0 h-screen overflow-y-hidden ">
       {isAdmin && <AdminSidebar />}
-      <div className="relative overflow-y-auto w-full mt-24 ">
+      <div className="relative overflow-y-auto w-full mt-5 ">
        
        <div className='flex justify-between'>
        

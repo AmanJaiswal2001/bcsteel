@@ -9,6 +9,8 @@ import EditBlog from "./components/Admin/EditBlog";
 import { Toaster } from 'react-hot-toast';
 import AllBlog from "./components/AllBlog";
 import AllProduct from "./components/Admin/AllProduct";
+import AllProductDetails from "./components/Admin/AdminProductDetails";
+import AdminBlogDetails from "./components/Admin/AdminBlogDetails";
 const Nav = lazy(() => import('./components/Nav'));
 const Footer = lazy(() => import('./components/Footer'));
 const PhoneCall = lazy(() => import('./components/PhoneCall'));
@@ -55,7 +57,9 @@ const AppLayout = () => {
     "/addproduct",
     "/editproduct",
     "/addBlog",
-    "/editblog"
+    "/editblog",
+    "/adminallproduct",
+    "/adminallblog"
   ];
 
   const shareAdminPaths=["/allblogs","/allProduct","/coilproduct/:id"
@@ -138,7 +142,9 @@ const appRouter = createBrowserRouter([
 // {path:"/addBlog/:id",element:<Blog3/>},
 {path:"/editblog/:id",element:<EditBlog/>},
 {path:"/allblogs",element:<AllBlog/>}, 
-{path:"/allproduct",element:<AllProduct/>},   
+{path:"/allproduct",element:<AllProduct/>}, 
+{path:"/adminallproduct",element:<AllProductDetails/>},  
+{path:"/adminallblog",element:<AdminBlogDetails/>},  
     ],
   },
 ]);

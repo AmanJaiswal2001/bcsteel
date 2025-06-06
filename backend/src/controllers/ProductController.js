@@ -26,7 +26,7 @@ const createProduct = async (req, res) => {
       return res.status(400).json({ message: "Product with same name and type already exists" });
     }
 
-    const imagePath = req.file ? `/uploads/${req.file.filename}` : "";
+    const imagePath = req.file ? `/uploads/${req.file.filename}` : "/uploads/1748501381055-307691695.jpg";
 
     const product = new Product({
       name,
