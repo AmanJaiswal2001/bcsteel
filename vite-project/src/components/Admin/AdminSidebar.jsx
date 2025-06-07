@@ -91,7 +91,7 @@ sessionStorage.removeItem("adminName");
 
 
         <h1 className='text-white px-10 pt-5 text-lg font-semibold'>
-  Hello,  {adminName || "Admin"}
+        👋Hello,  {adminName || "Admin"}
 </h1>
         <div 
         id="sidebarButtons"
