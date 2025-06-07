@@ -47,11 +47,34 @@ const AddBlog = () => {
   const validateContent = () => {
     const errors = {};
     formData.content.forEach((block, index) => {
-      const wordCount = block.type.trim().split(/\s+/).filter(Boolean).length;
+
+      const blockErrors={};
+
+      if (!block.type.trim()) {
+        blockErrors.type = 'Title is required.';
+      }else{
+        const wordCount = block.type.trim().split(/\s+/).length;
       if (wordCount > 30) {
-        errors[index] = 'Title should not exceed 30 words.';
+        blockErrors.type = 'Title should not exceed 30 words.';
+      
+      }
+      }
+      if (!block.text || block.text.trim() === '<p></p>') {
+        blockErrors.text = 'Text content is required.';
+      }
+      const nonEmptyTags = block.items.filter(tag => tag.trim() !== '');
+      if (nonEmptyTags.length === 0) {
+        blockErrors.items = 'At least one tag is required.';
+      }
+      if (Object.keys(blockErrors).length > 0) {
+        errors[index] = blockErrors;
       }
     });
+
+    if(!imageFile.banerImage){
+      errors.banerImage="Banner image is required";
+    }
+
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -78,6 +101,9 @@ const AddBlog = () => {
       });
 
       toast.success('Blog added successfully!');
+      setFormData({ content: [{ type: '', text: '', items: [''] }] });
+      setImageFile({ banerImage: null, sideImage: null });
+      setValidationErrors({});
     } catch (error) {
       console.error(error);
       toast.error('Upload failed. Please try again.');
@@ -115,10 +141,14 @@ const AddBlog = () => {
     accept="image/*"
     className="hidden"
     onChange={handleFileChange}
-    required
+    // required
   />
   {imageFile.banerImage && (
     <p className="text-sm mt-1 text-gray-600">{imageFile.banerImage.name}</p>
+  )}
+  {validationErrors.banerImage&&(
+    <p className="text-red-500 text-sm mt-1">{validationErrors.banerImage}</p>
+ 
   )}
 </div>
 
@@ -148,29 +178,33 @@ const AddBlog = () => {
 
         {formData.content.map((block, cIndex) => (
           <div key={cIndex} className="border p-4 rounded bg-gray-50 space-y-4">
-            <h1 className='font-poppins text-lg font-semibold'>Title</h1>
+            <h1 className='font-poppins text-lg font-semibold'>Title*</h1>
             <input
               type="text"
               placeholder="Type (max 30 words)"
               className="w-full p-2 border rounded"
               value={block.type}
               onChange={(e) => handleContentChange(cIndex, 'type', e.target.value)}
-              required
+              // required
             />
-            {validationErrors[cIndex] && (
-              <p className="text-red-500 text-sm mt-1">{validationErrors[cIndex]}</p>
-            )}
+            {validationErrors[cIndex]?.type && (
+      <p className="text-red-500 text-sm mt-1">{validationErrors[cIndex].type}</p>
+    )}
+            
 
             <div>
-              <label className="block font-semibold mb-1 font-poppins">Text (Rich Editor)</label>
+              <label className="block font-semibold mb-1 font-poppins">Text (Rich Editor)*</label>
               <TipTapEditor
                 value={block.text}
                 onChange={(val) => handleContentChange(cIndex, 'text', val)}
               />
+               {validationErrors[cIndex]?.text && (
+        <p className="text-red-500 text-sm mt-1">{validationErrors[cIndex].text}</p>
+      )}
             </div>
 
             <div className="space-y-2">
-              <label className="block font-semibold font-poppins">Tags</label>
+              <label className="block font-semibold font-poppins">Tags*</label>
               {block.items.map((item, iIndex) => (
                 <input
                   key={iIndex}
@@ -179,9 +213,12 @@ const AddBlog = () => {
                   className="w-full border p-2 rounded"
                   value={item}
                   onChange={(e) => handleItemChange(cIndex, iIndex, e.target.value)}
-                  required
+                  // required
                 />
               ))}
+              {validationErrors[cIndex]?.items && (
+        <p className="text-red-500 text-sm mt-1">{validationErrors[cIndex].items}</p>
+      )}
               <button
                 type="button"
                 onClick={() => addItem(cIndex)}

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import TipTapEditor from './TipTapEditor';
 import toast from 'react-hot-toast';
+import AdminSidebar from './AdminSidebar';
 const BASE_URL = import.meta.env.VITE_BACKEND_LIVE;
 
 const EditBlog = () => {
@@ -18,6 +19,9 @@ const EditBlog = () => {
   });
 
   const [message,setMessage]=useState('');
+
+
+  const [validationErrors,setValidationErrors]=useState({});
 
 
  
@@ -61,12 +65,12 @@ const EditBlog = () => {
     setFormData({ ...formData, content: updated });
   };
 
-  const addContentBlock = () => {
-    setFormData({
-      ...formData,
-      content: [...formData.content, { type: '', text: '', items: [''] }],
-    });
-  };
+  // const addContentBlock = () => {
+  //   setFormData({
+  //     ...formData,
+  //     content: [...formData.content, { type: '', text: '', items: [''] }],
+  //   });
+  // };
 
   const addItem = (index) => {
     const updated = [...formData.content];
@@ -83,8 +87,59 @@ const EditBlog = () => {
   };
 
 
+// Utility to strip HTML tags
+const stripHtml = (html) => {
+  const div = document.createElement("div");
+  div.innerHTML = html;
+  return div.textContent || div.innerText || "";
+};
+
+
+
+const validateContent=()=>{
+  const errors={};
+
+  formData.content.forEach((block,index)=>{
+
+const blockErrors={};
+
+if(!block.type.trim()){
+  blockErrors.type="Title is required";
+}else {
+  const wordCount=block.type.trim().split(/\s+/).length;
+
+if(wordCount>30){
+  blockErrors.type="Title should not exceed 30 words"; 
+}
+}
+const plainText = stripHtml(block.text).trim();
+if (!plainText) {
+  blockErrors.text = 'Text content is required.';
+}
+
+
+const nonEmptyTags=block.items.filter(tag => tag.trim()!=='');
+if(nonEmptyTags.length===0){
+  blockErrors.items="At least one tag is required";
+}
+if(Object.keys(blockErrors).length>0){
+  errors[index]=blockErrors;
+}
+
+  });
+  if(!imageFile.banerImage){
+    errors.banerImage="Banner image is required";
+  }
+  setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+ if(!validateContent()) return;
 
     try {
       const data = new FormData();
@@ -122,8 +177,11 @@ const EditBlog = () => {
     return <div className="text-center mt-10">Loading blog data...</div>;
   }
 
+
   return (
-    <div className="max-w-4xl mt-20 mx-auto p-6">
+<div className='flex h-screen overflow-y-hidden'>
+<AdminSidebar></AdminSidebar>
+<div className="w-full overflow-y-auto mt-5 mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">Edit Blog</h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -152,6 +210,10 @@ const EditBlog = () => {
       alt="Banner Preview"
       className="h-32 object-cover rounded border mt-1"
     />
+  )}
+  {validationErrors.banerImage&&(
+    <p className="text-red-500 text-sm mt-1">{validationErrors.banerImage}</p>
+ 
   )}
 </div>
 
@@ -183,14 +245,19 @@ const EditBlog = () => {
         {/* Content Blocks */}
         {formData.content.map((block, cIndex) => (
           <div key={cIndex} className="border p-4 rounded bg-gray-50 space-y-4">
+          <h1 className='font-poppins text-lg font-semibold'>Title*</h1>
+           
             <input
               type="text"
               placeholder="Type (required)"
               className="w-full p-2 border rounded"
               value={block.type}
               onChange={(e) => handleContentChange(cIndex, 'type', e.target.value)}
-              required
+              // required
             />
+              {validationErrors[cIndex]?.type && (
+      <p className="text-red-500 text-sm mt-1">{validationErrors[cIndex].type}</p>
+    )}
 
             <div>
               <label className="block font-semibold mb-1">Text (Rich Editor)</label>
@@ -198,6 +265,9 @@ const EditBlog = () => {
                 value={block.text}
                 onChange={(val) => handleContentChange(cIndex, 'text', val)}
               />
+               {validationErrors[cIndex]?.text && (
+        <p className="text-red-500 text-sm mt-1">{validationErrors[cIndex].text}</p>
+      )}
             </div>
 
             <div className="space-y-2">
@@ -212,6 +282,9 @@ const EditBlog = () => {
                   onChange={(e) => handleItemChange(cIndex, iIndex, e.target.value)}
                 />
               ))}
+              {validationErrors[cIndex]?.items && (
+        <p className="text-red-500 text-sm mt-1">{validationErrors[cIndex].items}</p>
+      )}
               <button
                 type="button"
                 onClick={() => addItem(cIndex)}
@@ -239,6 +312,9 @@ const EditBlog = () => {
         </button>
       </form>
     </div>
+</div>
+
+    
   );
 };
 

@@ -44,6 +44,8 @@ const AdminSidebar = () =>
     // localStorage.removeItem("employeeData")
     // localStorage.removeItem("token");
     sessionStorage.removeItem("role");
+    sessionStorage.removeItem("isAdmin");
+sessionStorage.removeItem("adminName");
     navigate("/adminlogin");
   };
 

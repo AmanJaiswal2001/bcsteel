@@ -215,7 +215,7 @@ return Object.keys(newErrors).length===0;
 </div>
 
         <div>
-          <label className="block">Thickness (comma-separated)</label>
+          <label className="block">Thickness (comma-separated)*</label>
           <input
             type="text"
             name="thickness"
@@ -228,7 +228,7 @@ return Object.keys(newErrors).length===0;
         </div>
 
         <div>
-          <label className="block">Width (comma-separated)</label>
+          <label className="block">Width (comma-separated)*</label>
           <input
             type="text"
             name="width"
@@ -241,7 +241,7 @@ return Object.keys(newErrors).length===0;
         </div>
 
         <div>
-          <label className="block">Weight (comma-separated)</label>
+          <label className="block">Weight (comma-separated)*</label>
           <input
             type="text"
             name="length"
@@ -266,7 +266,7 @@ return Object.keys(newErrors).length===0;
 
 
         <div>
-          <label className="block">Phone No</label>
+          <label className="block">Phone No*</label>
           <input
             type="text"
             name="number"

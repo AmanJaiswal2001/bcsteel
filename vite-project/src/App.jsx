@@ -35,7 +35,7 @@ const PrivacyPage = lazy(() => import('./components/PrivacyPage'));
 const Blog1 = lazy(() => import('./components/Blog1'));
 const Blog2 = lazy(() => import('./components/Blog2'));
 const Blog3 = lazy(() => import('./components/Blog3'));
-
+import AdminProtectedRoute from "./components/Admin/AdminProtectedRoute";
 
 const matchPath = (path, pathname) => {
   if (path.includes(':id')) {
@@ -128,6 +128,13 @@ const appRouter = createBrowserRouter([
       { path: "crsheets", element: <CRSheets /> },
       { path: "crcoils", element: <CRCoils /> },
       { path: "privacy", element: <PrivacyPage /> },
+      { path: "/admindashboard", element: <AdminProtectedRoute><AdminDashboard /></AdminProtectedRoute> },
+{ path: "/addproduct", element: <AdminProtectedRoute><AddProduct /></AdminProtectedRoute> },
+{ path: "/editproduct/:id", element: <AdminProtectedRoute><EditForm /></AdminProtectedRoute> },
+{ path: "/addBlog", element: <AdminProtectedRoute><AddBlog /></AdminProtectedRoute> },
+{ path: "/editblog/:id", element: <AdminProtectedRoute><EditBlog /></AdminProtectedRoute> },
+{ path: "/adminallproduct", element: <AdminProtectedRoute><AllProductDetails /></AdminProtectedRoute> },
+{ path: "/adminallblog", element: <AdminProtectedRoute><AdminBlogDetails /></AdminProtectedRoute> },
       // { path: "temp", element: <Blog1 /> },
 
 // { path: "smooth", element: <Blog2 /> },

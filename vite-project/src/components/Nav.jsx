@@ -48,13 +48,15 @@ const Nav = () => {
     {/* Menu Items */}
     <div className="hidden md:flex font-poppins justify-center  text-white text-[16px] gap-10 items-center">
       <Link className="font-medium font-poppins " to="/">Home</Link>
+    
+      <Link className="font-medium  font-poppins" to="/about">About</Link>
       <DroupdownMenu
         menuItems={["Hot Rolled", "Cold Rolled", "Steel"]}
         buttonName="Product"
       />
-      <Link className="font-medium  font-poppins" to="/about">About</Link>
-      <Link className="font-medium  font-poppins" to="/contact">Contact</Link>
+   
       <Link className="font-medium  font-poppins" to="/allblogs">Blog</Link>
+      <Link className="font-medium  font-poppins" to="/contact">Contact</Link>
     </div>
 
     {/* Connect With Us */}
