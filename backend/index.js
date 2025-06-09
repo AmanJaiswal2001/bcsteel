@@ -2,6 +2,7 @@ const dotenv = require('dotenv');
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
+const session = require("express-session");
 const bodyParser = require('body-parser');
 const connectDB = require('./src/db/connectDB.js');
 const adminAuthRoutes = require('./src/routes/adminAuthRoutes.js');
@@ -10,6 +11,7 @@ const customRoutes = require("./src/routes/customRoutes.js");
 const uploadRoutes = require("./src/routes/uploadRoute.js");
 const contactRoutes = require("./src/routes/contactRoutes.js");
 const blogRoutes = require('./src/routes/blogRoutes.js');
+const testimonialRoute=require('./src/routes/testimonialRoute.js');
 const fs = require('fs');
 // CORS configuration
 const allowedOrigins = [
@@ -42,6 +44,13 @@ app.use((req, res, next) => {
     next();
 });
 
+// app.use(session({
+//   secret: , // use env var in production
+//   resave: false,
+//   saveUninitialized: false,
+//   cookie: { secure: false }, // set to true if using HTTPS
+// }));
+
 // API Routes
 app.use('/api/admin/auth', adminAuthRoutes);
  app.use('/api/admin/product', productRoutes);
@@ -49,6 +58,7 @@ app.use('/api/admin/product', customRoutes);
 app.use("/api/admin/product", uploadRoutes);
 app.use("/api", contactRoutes);
 app.use('/api/admin', blogRoutes);
+app.use('/api/admin',testimonialRoute);
 
 // Static files
 app.use("/uploads", express.static("uploads"));

@@ -173,7 +173,7 @@ const res=await axios.post('http://localhost:8000/api/contact', formData);
         <img 
           src="contact.png" 
           alt="Digital Marketing Tools by Experts"
-          className="w-full h-full"
+          className="w-full h-full object-cover"
         />
       </div>
       
