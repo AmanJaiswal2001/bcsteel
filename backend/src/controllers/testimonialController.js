@@ -94,12 +94,10 @@ const updateTestimonial=async (req,res)=>{
                 const oldImagePath=existingTestinomial.author.picture;
                 if(oldImagePath&&oldImagePath!=="/uploads/default.jpg"){
                     const fullOldImagePath=path.join(process.cwd(),oldImagePath);
-                    try {
-                        fs.unlinkSync(fullOldImagePath);
-                        console.log(fullOldImagePath);
-                      } catch (err) {
-                        console.warn("Failed to delete old image:", err.message);
-                      }
+                    fs.promises.unlink(fullOldImagePath)
+                    .then(() => console.log("Deleted image:", fullOldImagePath))
+                    .catch(err => console.warn("Failed to delete image:", err.message));
+                    
                     
                 }
                 updateData.author.picture = `/uploads/${req.file.filename}`;

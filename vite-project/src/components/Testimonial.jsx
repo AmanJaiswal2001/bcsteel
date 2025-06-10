@@ -1,60 +1,64 @@
 import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import useFetchTestimonial from "../hooks/useFetchTestimonial";
 
 // Mock data for testimonials
-const testimonialList = [
-  {
-    author: {
-      fullName: "Arvind Mehta",
-      picture: "/testi.avif",
-      designation: "Founder / CEO",
-    },
-    rating: 3.5,
-    description:
-      "Sonatek's technical team is incredibly responsive. Whether it's a custom steel specification or a logistics query, they are always ready to assist with complete professionalism.",
-  },
-  {
-    author: {
-      fullName: "RShruti Verma",
-	  picture: "/testi.avif",
-      designation: "Project Engineer",
-    },
-    rating: 3.8,
-    description:
-      "Sonatek's technical team is incredibly responsive. Whether it's a custom steel specification or a logistics query, they are always ready to assist with complete professionalism.",
-  },
+// const testimonialList = [
+//   {
+//     author: {
+//       fullName: "Arvind Mehta",
+//       picture: "/testi.avif",
+//       designation: "Founder / CEO",
+//     },
+//     rating: 3.5,
+//     description:
+//       "Sonatek's technical team is incredibly responsive. Whether it's a custom steel specification or a logistics query, they are always ready to assist with complete professionalism.",
+//   },
+//   {
+//     author: {
+//       fullName: "RShruti Verma",
+// 	  picture: "/testi.avif",
+//       designation: "Project Engineer",
+//     },
+//     rating: 3.8,
+//     description:
+//       "Sonatek's technical team is incredibly responsive. Whether it's a custom steel specification or a logistics query, they are always ready to assist with complete professionalism.",
+//   },
   
-  {
-    author: {
-      fullName: "Neha Singh",
-	  picture: "/testi.avif",
-      designation: "Sustainability Manager,",
-    },
-    rating: 4.5,
-    description:
-      "What impressed us most about Sonatek is their focus on sustainable sourcing and modern processing methods.",
-  },
-  {
-    author: {
-      fullName: "Ravi Deshmukh",
-	  picture: "/testi.avif",
-      designation: "Operations Lead",
-    },
-    rating: 5.0,
-    description:
-      "Even after the order was fulfilled, Sonatek’s team ensured we had the necessary certifications, documentation, and post-delivery support. That level of care is rare in the steel industry",
-  },
-  {
-    author: {
-      fullName: "Rahul Khanna",
-	  picture: "/testi.avif",
-      designation: "Tech Lead",
-    },
-    rating: 4.0,
-    description:
-      "The platform is intuitive and easy to navigate, making the entire process seamless and enjoyable.",
-  }
-];
+//   {
+//     author: {
+//       fullName: "Neha Singh",
+// 	  picture: "/testi.avif",
+//       designation: "Sustainability Manager,",
+//     },
+//     rating: 4.5,
+//     description:
+//       "What impressed us most about Sonatek is their focus on sustainable sourcing and modern processing methods.",
+//   },
+//   {
+//     author: {
+//       fullName: "Ravi Deshmukh",
+// 	  picture: "/testi.avif",
+//       designation: "Operations Lead",
+//     },
+//     rating: 5.0,
+//     description:
+//       "Even after the order was fulfilled, Sonatek’s team ensured we had the necessary certifications, documentation, and post-delivery support. That level of care is rare in the steel industry",
+//   },
+//   {
+//     author: {
+//       fullName: "Rahul Khanna",
+// 	  picture: "/testi.avif",
+//       designation: "Tech Lead",
+//     },
+//     rating: 4.0,
+//     description:
+//       "The platform is intuitive and easy to navigate, making the entire process seamless and enjoyable.",
+//   }
+// ];
+
+
+
 
 // Rating component
 const Rating = ({ rating }) => {
@@ -104,16 +108,16 @@ const TestimonialItem = ({ testimonial, isActive }) => (
       <div className="flex items-center">
         <div className="mr-2">
           <img
-            src={testimonial.author.picture}
-            alt={testimonial.author.fullName}
+            src={testimonial?.author?.picture}
+            alt={testimonial?.author?.fullName}
             className="rounded-full border w-12 h-12 sm:w-20 sm:h-20"
            
           />
         </div>
         <div>
-          <h4 className="sm:text-xl text-[12px] font-medium">{testimonial.author.fullName}</h4>
+          <h4 className="sm:text-xl text-[12px] font-medium">{testimonial?.author?.fullName}</h4>
           <p className="sm:text-sm text-[8px]">
-            <i>{testimonial.author.designation}</i>
+            <i>{testimonial?.author?.designation}</i>
           </p>
         </div>
       </div>
@@ -123,6 +127,7 @@ const TestimonialItem = ({ testimonial, isActive }) => (
 
 // Main Testimonial component with carousel
 export const  Testimonial=()=> {
+  const { testimonial, loading, error } = useFetchTestimonial([]);
   const [currentIndex, setCurrentIndex] = useState(1);
   // const [visibleTestimonials, setVisibleTestimonials] = useState([]);
 
@@ -147,35 +152,38 @@ export const  Testimonial=()=> {
   }, []);
 
   const goToNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonialList.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonial.length);
   };
 
   const goToPrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonialList.length) % testimonialList.length);
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + testimonial.length) % testimonial.length);
   };
 
   // Calculate visible testimonials for desktop view
   const getVisibleTestimonials = () => {
     if (isMobile) {
       // On mobile, show only current testimonial
-      return [{ ...testimonialList[currentIndex], isActive: true }];
+      return [{ ...testimonial[currentIndex], isActive: true }];
     } else {
       // On desktop, show 3 testimonials (prev, current, next)
-      const prevIndex = (currentIndex - 1 + testimonialList.length) % testimonialList.length;
-      const nextIndex = (currentIndex + 1) % testimonialList.length;
+      const prevIndex = (currentIndex - 1 + testimonial.length) % testimonial.length;
+      const nextIndex = (currentIndex + 1) % testimonial.length;
     
      
       return [
-        { ...testimonialList[prevIndex], isActive: false },
-        { ...testimonialList[currentIndex], isActive: true },
-        { ...testimonialList[nextIndex], isActive: false }
+        { ...testimonial[prevIndex], isActive: false },
+        { ...testimonial[currentIndex], isActive: true },
+        { ...testimonial[nextIndex], isActive: false }
       ];
     }
   }
   const visibleTestimonials = getVisibleTestimonials();
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error loading testimonials</div>;
+
   return (
     <section className=" px-10 w-[98%] py-5 sm:py-10 m-auto mt-5 sm:mt-0   border-t border-gray-900 bg-white  text-zinc-900 dark:text-white">
-      <div className="container  w-full  mx-auto">
+      <div className="  w-full  mx-auto">
         <div className="flex w-full justify-center md:mb-6">
           <div className="sm:w-full  text-center">
             <h2 className="text-3xl text-black leading-none md:text-4xl font-bold sm:mb-4">
@@ -229,7 +237,7 @@ export const  Testimonial=()=> {
         
         {/* Carousel indicators */}
         <div className="flex justify-center mt-10 gap-2">
-          {testimonialList.map((_, index) => (
+          {testimonial.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}

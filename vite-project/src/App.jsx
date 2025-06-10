@@ -36,6 +36,8 @@ const Blog1 = lazy(() => import('./components/Blog1'));
 const Blog2 = lazy(() => import('./components/Blog2'));
 const Blog3 = lazy(() => import('./components/Blog3'));
 import AdminProtectedRoute from "./components/Admin/AdminProtectedRoute";
+import AdminTestimonial from "./components/Admin/AdminTestimonial";
+import EditTestimonial from "./components/Admin/EditTestimonial";
 
 const matchPath = (path, pathname) => {
   if (path.includes(':id')) {
@@ -151,7 +153,10 @@ const appRouter = createBrowserRouter([
 {path:"/allblogs",element:<AllBlog/>}, 
 {path:"/allproduct",element:<AllProduct/>}, 
 {path:"/adminallproduct",element:<AllProductDetails/>},  
-{path:"/adminallblog",element:<AdminBlogDetails/>},  
+{path:"/adminallblog",element:<AdminBlogDetails/>}, 
+{path:"/createtestimonial",element:<AdminTestimonial/>},  
+// {path:"/edittestimonial",element:<EditTestimonial/>},  
+
     ],
   },
 ]);
