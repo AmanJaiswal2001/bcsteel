@@ -14,7 +14,7 @@ try{
     } catch (e) {
       return res.status(400).json({ message: "Invalid JSON in content field" });
     }
-    const banerImage = req.files['banerImage'] ? req.files['banerImage'][0].filename : null;
+    const banerImage = req.files['banerImage'] ? req.files['banerImage'][0].filename : "/uploads/dummyproduct.jpg";
     const sideImage = req.files['sideImage'] ? req.files['sideImage'][0].filename : null;
 
 

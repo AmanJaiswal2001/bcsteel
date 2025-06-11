@@ -11,7 +11,7 @@ const {
     if (!fullName || !designation || !rating || !description) {
         return res.status(400).json({ message: "Please provide required fields" });
       }
-      const picturePath = req.file ? `/uploads/${req.file.filename}` : "/uploads/default.jpg";
+      const picturePath = req.file ? `/uploads/${req.file.filename}` : "/uploads/dummy.png";
 
 const newTestimonial=new  Testinomial({
 

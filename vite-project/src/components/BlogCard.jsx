@@ -121,7 +121,7 @@ export const BlogCard = () => {
 
       </div>
 
-      <div className='mt-20 border-2 cursor-pointer bg-[#12396d] border-[#2241a6] rounded-lg items-center m-auto w-[90%]  sm:w-[20%] flex justify-center'>
+      <div onClick={() => navigate("/allblogs")} className='mt-20 border-2 cursor-pointer bg-[#12396d] border-[#2241a6] rounded-lg items-center m-auto w-[90%]  sm:w-[20%] flex justify-center'>
       
 <Button 
     
@@ -129,7 +129,7 @@ onClick={() => navigate("/allblogs")}
  buttonName="View all"
  rounded="rounded-lg"
   text="text-[#2241a6]"   border=""
-  width="w-60 " />
+  width="sm:w-60 " />
 </div>
     </div>
   );

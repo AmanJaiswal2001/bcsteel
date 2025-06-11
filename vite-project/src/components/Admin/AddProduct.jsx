@@ -254,7 +254,7 @@ return Object.keys(newErrors).length===0;
         </div>
 
         <div>
-          <label className="block">Bottom card</label>
+          <label className="block">Bottom Card Text</label>
           <input
             type="text"
             name="purchaseNow"
