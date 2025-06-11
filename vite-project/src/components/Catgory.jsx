@@ -17,7 +17,7 @@ const Catgory = () => {
     {/* catgory */}
     <div className=' flex flex-col gap-2   h-full w-full lg:w-3/4'>
    
-    <h1 className='font-extrabold text-2xl text-[#262626] font-poppins text-center sm:text-left '>Hot Rolled Mild Steel Sheets</h1>
+    <h1 className='font-extrabold text-2xl text-[#262626] font-poppins text-center sm:text-left '>Hot Rolled Sheets</h1>
     <div className='relative  max-w-full  mb-10 m-auto   lg:mx-0 xl:mx-0'>
     <HotRolledCatgory filters={filters}/>
     </div>

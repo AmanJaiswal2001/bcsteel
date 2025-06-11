@@ -24,8 +24,9 @@ const  ColdCoilCat = ({filters}) => {
 
   const coilProducts = products.filter((p) => {
     // console.log("Checking product:", p);
-    return   p.type.toLowerCase().includes("coil") && // matches 'hotrolledcoil', 'coldcoil', etc.
-    p.name.toLowerCase().includes("cold")
+    return   p.type.toLowerCase().includes("coldrolledcoil")
+    //   && // matches 'hotrolledcoil', 'coldcoil', etc.
+    //  p.name.toLowerCase().includes("")
   });
   
   const filteredData = coilProducts.filter((card) => {

@@ -29,10 +29,12 @@ inquiryType:{
     type:String,
     require:true,
     enum: [
-      'services',
-      'pricing',
-      'consultation',
-      'other'
+       " product availability",
+        "delivery location",
+       " delivery timeline",
+        "project consultation", 
+       " parternship",
+       " something else"
   ],
 
    

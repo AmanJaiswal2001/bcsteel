@@ -22,7 +22,7 @@ hideFields={["Length"]}
     {/* catgory */}
     <div className=' flex flex-col gap-2 h-full w-full lg:w-3/4'>
    
-    <h1 className='font-extrabold text-2xl px-6 sm:px-0 text-[#262626] font-poppins text-left '>Hot Rolled Mild Steel Coils</h1>
+    <h1 className='font-extrabold text-2xl px-6 sm:px-0 text-[#262626] font-poppins text-left '>Hot Rolled Coils </h1>
    <div className='relative max-w-full mx-auto mb-10  lg:mx-0 xl:mx-0'>
    <ColdCoilCat filters={filters}/>
    </div>

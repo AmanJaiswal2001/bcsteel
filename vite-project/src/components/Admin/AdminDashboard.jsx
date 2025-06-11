@@ -5,13 +5,15 @@ import useFetchBlog from '../../hooks/useFetchBlog';
 import useFetchProducts from '../../hooks/useFetchProducts';
 import HelperTable from './HelperTable';
 import axios from "axios";
+import useFetchTestimonial from '../../hooks/useFetchTestimonial';
 const BASE_URL = import.meta.env.VITE_BACKEND_LIVE;
 const AdminDashboard = () => {
 
 
   const { blog, loading: blogLoading, error: blogError } = useFetchBlog();
   const { products, loading: productLoading, error: productError } = useFetchProducts();
-
+  const {testimonial,loading: testimonialLoading, error: testimonialError}=useFetchTestimonial();
+  console.log('Testimonial Data:', testimonial);
   
   const navigate = useNavigate();
 
@@ -52,6 +54,8 @@ const AdminDashboard = () => {
   }
 
 
+ const handletestimonialEdit = (id) => navigate(`/editblog/${id}`);
+
   const transformedBlogData = blog.slice(0, 5).map((item) => {
     const firstContent = item.content?.[0];
     return {
@@ -61,6 +65,14 @@ const AdminDashboard = () => {
       items: firstContent?.items[0] || [],
     };
   });
+
+  // console.log('Testimonial before HelperTable:', testimonial);
+
+  console.log('Testimonial Data:', testimonial);
+  if (testimonial.length > 0) {
+    console.log('First Testimonial Author Full Name:', testimonial[0].author.fullName);
+    console.log('First Testimonial Description:', testimonial[0].description);
+  }
   return (
     <div className="pt-0 flex bg-gray-100 h-screen ">
       {/* <h1 className="text-xl p-10 font-bold mb-4">Admin Dashboard</h1> */}
@@ -107,7 +119,7 @@ const AdminDashboard = () => {
 
 
 <div className='flex mt-2 cursor-pointer'>
-{products.length>5&&(
+{products.length>0&&(
   <button
                 onClick={() => navigate('/adminallproduct')}
                 className="text-blue-600  cursor-pointer text-[12px] text-center m-auto  hover:text-blue-800"
@@ -140,7 +152,39 @@ isAdmin={true}
 
 
 <div className='flex mt-2 cursor-pointer'>
-{blog.length>5&&(
+{blog.length>0&&(
+  <button
+                onClick={() => navigate('/adminallblog')}
+                className="text-blue-600  cursor-pointer text-[12px] text-center m-auto  hover:text-blue-800"
+              >
+                View All
+              </button>
+)}
+</div>
+</div>
+
+
+<h1 className='font-bold mt-5 px-5 font-poppins text-lg'>All Testimonial ({testimonial.length})</h1>
+
+
+<div className='w-full  p-5 mt-5  rounded-4xl  bg-white'>
+<HelperTable
+   title="All Blogs"
+            columns={[
+              { label: 'Name', key: 'author.fullName' },
+              { label: 'Description', key: 'description' }
+              // { label: 'Tags', key: 'items' },
+            ]}
+            data={testimonial}
+
+isAdmin={true}
+        onEdit={handleBlogEdit}
+        onDelete={handleBlogDelete}
+/>
+
+
+<div className='flex mt-2 cursor-pointer'>
+{blog.length>0&&(
   <button
                 onClick={() => navigate('/adminallblog')}
                 className="text-blue-600  cursor-pointer text-[12px] text-center m-auto  hover:text-blue-800"

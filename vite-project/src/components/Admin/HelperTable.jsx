@@ -2,6 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import DeleteButton from './DeleteButton'; // Adjust path if needed
 
+// Helper function to get data from nested keys (e.g., 'author.fullName')
+const getValueFromKey = (item, key) => {
+  return key.split('.').reduce((acc, part) => acc && acc[part], item);
+};
+
 const HelperTable = ({ columns, data, isAdmin = false, onDelete, onEdit, title }) => {
   const navigate = useNavigate();
 
@@ -34,11 +39,11 @@ const HelperTable = ({ columns, data, isAdmin = false, onDelete, onEdit, title }
                   <td
                     key={colIndex}
                     className="px-4 py-2 border-b border-b-gray-200 max-w-[150px] truncate"
-                    title={item[col.key]}
+                    title={getValueFromKey(item, col.key)} // Access data with the helper function
                   >
                     {col.key === 'createdAt'
-                      ? new Date(item[col.key]).toLocaleDateString()
-                      : item[col.key]}
+                      ? new Date(getValueFromKey(item, col.key)).toLocaleDateString()
+                      : getValueFromKey(item, col.key)}
                   </td>
                 ))}
                 {isAdmin && (

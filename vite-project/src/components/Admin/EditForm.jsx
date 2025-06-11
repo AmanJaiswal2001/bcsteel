@@ -59,7 +59,7 @@ const EditForm = () => {
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value.trim(),
     }));
   };
 
@@ -77,8 +77,8 @@ const validateForm=()=>{
   
 
     if(!formData.name.trim()) newErrors.name="Name is required";
-    if(!formData.type)  newErrors.type="Type is required";
-    if(!formData.thickness){
+    if(!formData.type.trim())  newErrors.type="Type is required";
+    if(!formData.thickness.trim()){
       newErrors.thickness="Thickness is required";
     }else if(
       !numberPattern.test(formData.thickness)
@@ -86,27 +86,27 @@ const validateForm=()=>{
       newErrors.thickness="Only number and commans are allowed"
     }
 
-    if(!formData.width){
+    if(!formData.width.trim()){
       newErrors.width="Width is required";
     }
     else if(!numberPattern.test(formData.width)){
       newErrors.width="Only number and commans are allowed"
     }
 
-    if(!formData.length){
+    if(!formData.length.trim()){
       newErrors.length="Weight is required";
     }else if(!numberPattern.test(formData.length)){
       newErrors.length="Only number and commans are allowed"
     }
 
-    if(!formData.number){
+    if(!formData.number.trim()){
       newErrors.number="please must be 10 digits"
     }
     else if(!phonePattern.test(formData.number)){
       newErrors.number="Phone number must be exactly 10 digits";
     }
 
-    if(!formData.deliveryDays) newErrors.deliveryDays="Delivery days required"
+    if(!formData.deliveryDays.trim()) newErrors.deliveryDays="Delivery days required"
 
     setError(newErrors);
 

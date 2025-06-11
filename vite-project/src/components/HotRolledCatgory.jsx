@@ -28,8 +28,9 @@ const HotRolledCatgory = ({filters}) => {
     ? products.filter((p) => {
         // console.log("Checking product:", p);
         return (
-          p?.type?.toLowerCase().includes("sheet") &&
-          p?.name?.toLowerCase().includes("hot")
+          p?.type?.toLowerCase().includes("hotrolledsheet")
+          //  ||
+          // p?.name?.toLowerCase().includes("hot")
         );
       })
     : [];

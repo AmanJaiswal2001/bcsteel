@@ -29,8 +29,9 @@ const ColdRolledCatgory = ({filters}) => {
 
   const coilProducts = products.filter((p) => {
     // console.log("Checking product:", p);
-    return   p.type.toLowerCase().includes("sheet") && // matches 'hotrolledcoil', 'coldcoil', etc.
-    p.name.toLowerCase().includes("cold")
+    return   p.type.toLowerCase().includes("coldrolledsheet")
+    //  && // matches 'hotrolledcoil', 'coldcoil', etc.
+    // p.name.toLowerCase().includes("cold")
   });
   const filteredData = coilProducts .filter((card) => {
     // Grade filter

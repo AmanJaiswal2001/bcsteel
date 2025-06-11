@@ -21,8 +21,9 @@ const CoilsCat = ({ filters }) => {
   };
 
   const coilProducts = products.filter((p) =>
-    p.type?.toLowerCase().includes("coil") &&
-    p.name?.toLowerCase().includes("hot")
+    p.type?.toLowerCase().includes("hotrolledcoil")
+  //  &&
+    // p.name?.toLowerCase().includes("hot")
   );
 
   const filteredData = coilProducts.filter((card) => {

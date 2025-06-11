@@ -155,7 +155,7 @@ const appRouter = createBrowserRouter([
 {path:"/adminallproduct",element:<AllProductDetails/>},  
 {path:"/adminallblog",element:<AdminBlogDetails/>}, 
 {path:"/createtestimonial",element:<AdminTestimonial/>},  
-// {path:"/edittestimonial",element:<EditTestimonial/>},  
+ {path:"/edittestimonial/:id",element:<EditTestimonial/>},  
 
     ],
   },

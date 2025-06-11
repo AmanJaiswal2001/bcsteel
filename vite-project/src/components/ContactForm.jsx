@@ -1,6 +1,8 @@
+
 import { useState } from 'react';
 import { Send, ChevronDown } from 'lucide-react';
 import axios from 'axios';
+const BASE_URL = import.meta.env.VITE_BACKEND_LIVE;
 const  ContactForm=()=> {
 
   const [isHovered, setIsHovered] = useState(false);
@@ -26,7 +28,7 @@ const  ContactForm=()=> {
     e.preventDefault();
    
    try{
-const res=await axios.post('http://localhost:8000/api/contact', formData);
+const res=await axios.post(`${BASE_URL}/api/contact`, formData);
 
 
     console.log('Form submitted:', res.data);
@@ -115,10 +117,13 @@ const res=await axios.post('http://localhost:8000/api/contact', formData);
                 onChange={handleChange}
               >
                 <option value="" disabled selected>YOUR INQUIRY ABOUT</option>
-                <option value="services">Services</option>
-                <option value="pricing">Pricing</option>
-                <option value="consultation">Consultation</option>
-                <option value="other">Other</option>
+                <option value="product availability">Product Availability</option>
+                <option value="delivery location">Delivery Location</option>
+                <option value="delivery timeline">Delivery Timeline</option>
+                <option value="project consultation">Project Consultation</option>
+                <option value="parternship">Parternship</option>
+                <option value="something else">Something Else</option>
+         
               </select>
               <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                 <ChevronDown size={18} className="text-gray-500" />
