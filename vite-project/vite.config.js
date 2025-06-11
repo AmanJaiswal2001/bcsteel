@@ -22,14 +22,14 @@ export default defineConfig({
   },
   
   // Development server settings (optional)
-  // server: {
-  //   port: 8000,
-  //   host: true // Network access ke liye
-  // },
+  server: {
+    port: 8000,
+    host: true // Network access ke liye
+  },
   
-  // // Preview server settings (optional)
-  // preview: {
-  //   port: 4173,
-  //   host: true
-  // }
+  // Preview server settings (optional)
+  preview: {
+    port: 4173,
+    host: true
+  }
 })
