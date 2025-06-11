@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 
 const EditTestimonial = () => {
  const {id}=useParams();
-
+ const BASE_URL = import.meta.env.VITE_BACKEND_LIVE;
 
  const [formData,setFormData]=useState({
     fullName: '',
@@ -18,7 +18,7 @@ const EditTestimonial = () => {
  useEffect(()=>{
     const fetchTestimonial= async()=>{
     try{
-const res= await axios.get(`http://localhost:5000/api/admin/getTestimonial/${id}`,);
+const res= await axios.get(`${BASE_URL}/api/admin/getTestimonial/${id}`,);
 
 const data=res.data;
 setFormData({
@@ -86,7 +86,7 @@ data.append('description',formData.description);
 if(formData.picture) data.append('picture',formData.picture);
 
 try{
-await axios.put(`http://localhost:5000/api/admin/updateTestimonial/${id}`,data);
+await axios.put(`${BASE_URL}/api/admin/updateTestimonial/${id}`,data);
 alert('Testimonial updated successfully!');
 }
 catch (error) {

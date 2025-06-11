@@ -56,7 +56,7 @@ catch (err) {
         {/* img */}
         <img 
         className=" h-full object-cover rounded-lg" 
-        src={`http://localhost:8000${product?.image}`} alt={product?.title} />
+        src={`${BASE_URL}${product?.image}`} alt={product?.title} />
    
 
       </div>
