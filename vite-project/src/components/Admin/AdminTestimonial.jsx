@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-
+const BASE_URL = import.meta.env.VITE_BACKEND_LIVE;
+import toast from 'react-hot-toast';
+import AdminSidebar from './AdminSidebar';
 const AdminTestimonial = () => {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -42,16 +44,26 @@ const AdminTestimonial = () => {
     if (formData.picture) data.append('picture', formData.picture);
 
     try {
-      await axios.post('http://localhost:5000/api/admin/createTestimonial', data);
+      await axios.post(`${BASE_URL}/api/admin/createTestimonial`, data);
       console.log('Submitted:', Object.fromEntries(data.entries()));
-      alert('Testimonial submitted!');
+      // alert('Testimonial submitted!');
+      toast.success(' Testimonial added successfully!');
     } catch (error) {
       console.error('Error submitting testimonial:', error.response?.data || error.message);
+      toast.error('Upload failed. Please try again.');
+   
     }
   };
 
+    const isAdmin=sessionStorage.getItem('isAdmin')==='true'
+
   return (
-    <div className='mt-20'>
+
+    <div className='flex gap-5'>
+      {isAdmin&&(
+  <AdminSidebar/>
+)}
+<div className='w-full p-5'>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor='fullName' className='block mb-1 font-medium'>
@@ -138,6 +150,8 @@ const AdminTestimonial = () => {
         </button>
       </form>
     </div>
+    </div>
+    
   );
 };
 
