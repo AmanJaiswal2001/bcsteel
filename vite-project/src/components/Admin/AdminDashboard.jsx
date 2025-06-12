@@ -196,9 +196,9 @@ isAdmin={true}
 
 
 <div className='flex mt-2 cursor-pointer'>
-{blog.length>0&&(
+{testimonial.length>0&&(
   <button
-                onClick={() => navigate('/adminallblog')}
+                onClick={() => navigate('/adminTestimonialdetails')}
                 className="text-blue-600  cursor-pointer text-[12px] text-center m-auto  hover:text-blue-800"
               >
                 View All

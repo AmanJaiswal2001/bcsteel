@@ -3,12 +3,10 @@ import { Link } from 'react-router-dom'
 import { MdDashboard, MdKeyboardArrowLeft, MdEventRepeat } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 import { FaUserClock, FaCreditCard,FaIdCard } from "react-icons/fa6";
-import { BiSolidBarChartAlt2 } from "react-icons/bi";
-import { RiBillFill, RiMenu5Fill } from "react-icons/ri";
-import { IoChevronDownSharp } from "react-icons/io5";
+
 import { TbLogout } from "react-icons/tb";
 import { useNavigate, useLocation } from 'react-router-dom';
-import { RiTeamFill } from "react-icons/ri";
+
 
 
 
@@ -137,9 +135,9 @@ sessionStorage.removeItem("adminName");
             </Link>
 
             <Link 
-            to="/createtestimonial"
+            to="/adminTestimonialcard"
             className={`flex items-center w-full lg:h-[40px] h-[30px] rounded-[20px] hover:border hover:border-gray-300 text-center transition-all duration-300 px-3
-              ${isActive("#") 
+              ${isActive("/adminTestimonialcard") 
               ? 'bg-white text-black outline border-none font-bold' 
               : 'bg-transparent'}`}>
               <span className='flex items-center gap-2 font-lato lg:text-sm text-xs'>

@@ -38,6 +38,8 @@ const Blog3 = lazy(() => import('./components/Blog3'));
 import AdminProtectedRoute from "./components/Admin/AdminProtectedRoute";
 import AdminTestimonial from "./components/Admin/AdminTestimonial";
 import EditTestimonial from "./components/Admin/EditTestimonial";
+import AdminTestimonialDetail from "./components/Admin/AdminTestimonialDetail";
+import { AdminTestimonialCard } from "./components/Admin/AdminTestinomialCard";
 
 const matchPath = (path, pathname) => {
   if (path.includes(':id')) {
@@ -63,7 +65,9 @@ const AppLayout = () => {
     "/adminallproduct",
     "/adminallblog",
     "/createtestimonial",
-    "/edittestimonial/:id"
+    "/edittestimonial/:id",
+    "/adminTestimonialdetails",
+    "/adminTestimonialcard"
   ];
 
   const shareAdminPaths=["/allblogs","/allProduct","/coilproduct/:id"
@@ -158,6 +162,8 @@ const appRouter = createBrowserRouter([
 {path:"/adminallblog",element:<AdminBlogDetails/>}, 
 {path:"/createtestimonial",element:<AdminTestimonial/>},  
  {path:"/edittestimonial/:id",element:<EditTestimonial/>},  
+ {path:"/adminTestimonialdetails",element:<AdminTestimonialDetail/>}, 
+ {path:"/adminTestimonialcard",element:<AdminTestimonialCard/>}, 
 
     ],
   },

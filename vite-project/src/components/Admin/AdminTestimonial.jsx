@@ -41,7 +41,7 @@ const AdminTestimonial = () => {
     data.append('designation', formData.designation);
     data.append('rating', formData.rating);
     data.append('description', formData.description);
-    if (formData.picture) data.append('picture', formData.picture);
+    if (formData.picture) data.append('file', formData.picture);
 
     try {
       await axios.post(`${BASE_URL}/api/admin/createTestimonial`, data);
@@ -133,7 +133,7 @@ const AdminTestimonial = () => {
   <input
     type="file"
     id="picture"
-    name="picture"
+    name="file"
     accept="image/*"
     className="hidden"
     onChange={handleFileChange}

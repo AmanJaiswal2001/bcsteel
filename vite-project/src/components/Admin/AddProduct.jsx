@@ -11,7 +11,7 @@ const AddProduct = () => {
     // image: '',
     thickness: '',
     width: '',
-    length: '',
+    // length: '',
     purchaseNow: '',
     deliveryDays: '',
     number:''
@@ -71,13 +71,13 @@ else if(!numberPattern.test(formData.width)){
 
 }
  
-if(!formData.length.trim())
+// if(!formData.length.trim())
   
-  {
-    newErrors.length="Weigth is required";
-  }else if(!numberPattern.test(formData.length)){
-newErrors.length="Only number and commans are allowed"
-  }
+//   {
+//     newErrors.length="Weigth is required";
+//   }else if(!numberPattern.test(formData.length)){
+// newErrors.length="Only number and commans are allowed"
+//   }
   
 if(!formData.number.trim()) 
 {
@@ -111,7 +111,7 @@ return Object.keys(newErrors).length===0;
     data.append("type", formData.type);
     data.append("thickness", JSON.stringify(formData.thickness.split(',').map(Number)));
     data.append("width", JSON.stringify(formData.width.split(',').map(Number)));
-    data.append("length", JSON.stringify(formData.length.split(',').map(Number)));
+    // data.append("length", JSON.stringify(formData.length.split(',').map(Number)));
     data.append("purchaseNow", formData.purchaseNow);
     data.append("deliveryDays", formData.deliveryDays);
     data.append("number", formData.number);
@@ -240,7 +240,7 @@ return Object.keys(newErrors).length===0;
          
         </div>
 
-        <div>
+        {/* <div>
           <label className="block">Weight (comma-separated)*</label>
           <input
             type="text"
@@ -251,7 +251,7 @@ return Object.keys(newErrors).length===0;
           />
             {error.length && <p className="text-red-500 text-sm">{error.length}</p>}
          
-        </div>
+        </div> */}
 
         <div>
           <label className="block">Bottom Card Text</label>
