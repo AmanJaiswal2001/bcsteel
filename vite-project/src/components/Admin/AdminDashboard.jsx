@@ -54,7 +54,19 @@ const AdminDashboard = () => {
   }
 
 
- const handletestimonialEdit = (id) => navigate(`/editblog/${id}`);
+ const handletestimonialEdit = (id) => navigate(`/edittestimonial/${id}`);
+
+
+ const handletestimonialDelete=async(id)=>{
+  try{
+await axios.delete(`${BASE_URL}/api/admin/deleteTestimonial/${id}`);
+  }
+  catch(err){
+    console.error('Failed to delete',err);
+  }
+}
+
+
 
   const transformedBlogData = blog.slice(0, 5).map((item) => {
     const firstContent = item.content?.[0];
@@ -102,7 +114,7 @@ const AdminDashboard = () => {
 
 <div className='w-full  p-5 -mt-2  rounded-4xl  bg-white'>
 <HelperTable
-  title="All Products"
+  // title="All Products"
   columns={[
     { label: 'Product Name', key: 'name' },
     { label: 'Product Type', key: 'type' },
@@ -137,7 +149,7 @@ const AdminDashboard = () => {
 
 <div className='w-full  p-5 mt-5  rounded-4xl  bg-white'>
 <HelperTable
-   title="All Blogs"
+  //  title="All Blogs"
             columns={[
               { label: 'Title', key: 'type' },
               { label: 'Category', key: 'category' },
@@ -169,17 +181,17 @@ isAdmin={true}
 
 <div className='w-full  p-5 mt-5  rounded-4xl  bg-white'>
 <HelperTable
-   title="All Blogs"
+  //  title=""
             columns={[
               { label: 'Name', key: 'author.fullName' },
               { label: 'Description', key: 'description' }
               // { label: 'Tags', key: 'items' },
             ]}
-            data={testimonial}
+            data={testimonial.slice(0,5)}
 
 isAdmin={true}
-        onEdit={handleBlogEdit}
-        onDelete={handleBlogDelete}
+        onEdit={handletestimonialEdit}
+        onDelete={handletestimonialDelete}
 />
 
 

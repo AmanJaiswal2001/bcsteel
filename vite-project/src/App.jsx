@@ -62,7 +62,8 @@ const AppLayout = () => {
     "/editblog",
     "/adminallproduct",
     "/adminallblog",
-    "/createtestimonial"
+    "/createtestimonial",
+    "/edittestimonial/:id"
   ];
 
   const shareAdminPaths=["/allblogs","/allProduct","/coilproduct/:id"
