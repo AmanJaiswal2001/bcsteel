@@ -188,13 +188,12 @@ const Footer = () => {
        
         <hr className=' bg-white'></hr>
         <div className=' flex sm:justify-center px-2'>
-        <p className='text-white sm:w-72  font-poppins text-sm pt-2'>© Copyright 2025 Sonatek. Designed by</p>
+        <p className='text-white sm:w-[280px] font-poppins text-sm pt-2'>© Copyright 2025 Sonatek. Designed by</p>
         <a
           target='_blank'
           rel='noopener noreferrer'
           href='https://ganesyx.com/'
-          className='text-white font-bold  font-poppins mx-1 text-sm pt-2 hover:underline'
-        >Ganesyx
+          className='text-white font-bold  font-poppins mx-0 text-sm pt-2 hover:underline'>Ganesyx
         </a>
         </div>
        

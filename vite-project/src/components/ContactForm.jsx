@@ -15,6 +15,8 @@ const  ContactForm=()=> {
     inquiryType: '',
     message: ''
   });
+  const [error,setError]=useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,8 +26,32 @@ const  ContactForm=()=> {
     }));
   };
 
+
+  const validation=()=>{
+    const contactError={}
+
+    if(!formData.name.trim())  contactError.name='Name is required'
+    if(!/^\d{10}$/.test(formData.phone.trim())) {
+      contactError.phone="Number is 10 digit required"
+    }
+    if(!formData.address.trim()) {
+      contactError.address="Address is required"
+    } 
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      contactError.email="Email must be required"
+    }
+    if(!formData.inquiryType) contactError.inquiryType="Please select a inquiry type"
+  
+
+
+  setError(contactError);
+  return Object.keys(contactError).length===0;
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!validation()) return;
+
+    setLoading(true);
    
    try{
 const res=await axios.post(`${BASE_URL}/api/contact`, formData);
@@ -45,10 +71,13 @@ const res=await axios.post(`${BASE_URL}/api/contact`, formData);
 
    catch (error) {
     console.error('Error:', error.response?.data || error.message);
-    alert("Failed to send message.");
-  
+    // alert("Failed to send message.");
+   }
+    finally {
+      setLoading(false); 
+    }
     // Here you would typically send the data to your backend
-  };
+  
 }
 
   return (
@@ -73,8 +102,9 @@ const res=await axios.post(`${BASE_URL}/api/contact`, formData);
                 className="w-full px-4 py-3 border outline-none font-poppins border-gray-300 rounded"
                 value={formData.name}
                 onChange={handleChange}
-                required
+                // required
               />
+              {error.name &&<p className="text-red-500 text-sm">{error.name}</p>}
             </div>
             <div>
               <input
@@ -85,6 +115,7 @@ const res=await axios.post(`${BASE_URL}/api/contact`, formData);
                 value={formData.address}
                 onChange={handleChange}
               />
+              {error.address&&<p className="text-red-500 text-sm">{error.address}</p>}
             </div>
             {/* <div>
               <input
@@ -108,6 +139,7 @@ const res=await axios.post(`${BASE_URL}/api/contact`, formData);
                 value={formData.phone}
                 onChange={handleChange}
               />
+              {error.phone&&<p className="text-red-500 text-sm">{error.phone}</p>}
             </div>
             <div className="relative">
               <select
@@ -128,6 +160,7 @@ const res=await axios.post(`${BASE_URL}/api/contact`, formData);
               <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                 <ChevronDown size={18} className="text-gray-500" />
               </div>
+              {error.inquiryType&&<p className="text-red-500 text-sm">{error.inquiryType}</p>}
             </div>
           </div>
           
@@ -140,8 +173,8 @@ const res=await axios.post(`${BASE_URL}/api/contact`, formData);
                 className="w-full px-4 py-3 outline-none border font-poppins border-gray-300 rounded"
                 value={formData.email}
                 onChange={handleChange}
-                required
-              />
+                           />
+              {error.email&&<p className="text-red-500 text-sm">{error.email}</p>}
             </div>
            
           </div>
@@ -154,16 +187,29 @@ const res=await axios.post(`${BASE_URL}/api/contact`, formData);
               className="w-full px-4 font-poppins py-3 outline-none border border-gray-300 rounded resize-none"
               value={formData.message}
               onChange={handleChange}
-              required
+              // required
             ></textarea>
           </div>
           
           <button 
             type="submit" 
-            className="flex items-center justify-center bg-[#12396d] hover:bg-[#12396d] text-white font-medium px-6 py-3 rounded transition duration-300"
-          >
-            <span className="mr-2 font-poppins">SEND NOW</span>
-            <Send size={16} />
+            className="flex items-center cursor-pointer justify-center bg-[#12396d] hover:bg-[#12396d] text-white font-medium px-6 py-3 rounded transition duration-300"
+         
+            disabled={loading} >
+          {loading ? (
+    <span className="flex items-center">
+      <svg className="animate-spin mr-2 h-5 w-5 text-white" viewBox="0 0 24 24">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="white" strokeWidth="4" fill="none" />
+        <path className="opacity-75" fill="white" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+      </svg>
+      Sending...
+    </span>
+  ) : (
+    <>
+      <span className="mr-2 font-poppins">SEND NOW</span>
+      <Send size={16} />
+    </>
+  )}
           </button>
         </form>
       </div>

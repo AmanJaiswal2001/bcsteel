@@ -29,12 +29,9 @@ inquiryType:{
     type:String,
     require:true,
     enum: [
-       " product availability",
-        "delivery location",
-       " delivery timeline",
-        "project consultation", 
-       " parternship",
-       " something else"
+       "product availability","delivery location","delivery timeline","project consultation", 
+       "parternship",
+       "something else"
   ],
 
    

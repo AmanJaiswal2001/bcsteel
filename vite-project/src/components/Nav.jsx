@@ -51,7 +51,7 @@ const Nav = () => {
     
       <Link className="font-medium  font-poppins" to="/about">About</Link>
       <DroupdownMenu
-        menuItems={["Hot Rolled", "Cold Rolled", "Steel"]}
+        menuItems={["Hot Rolled", "Cold Rolled", "All Product"]}
         buttonName="Product"
       />
    

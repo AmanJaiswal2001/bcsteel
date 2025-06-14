@@ -27,6 +27,8 @@ const AddProduct = () => {
     'coldrolledcoil',
   ];
 
+  const [loading,setLoading]=useState();
+
 const navigate=useNavigate();
 
   const handleChange = (e) => {
@@ -105,6 +107,7 @@ return Object.keys(newErrors).length===0;
     e.preventDefault();
 
     if(!validateForm())  return;
+    setLoading(true);
     const data = new FormData();
 
     data.append("name", formData.name);
@@ -143,6 +146,10 @@ return Object.keys(newErrors).length===0;
     "Something went wrong";
       toast.error(`Error uploading:${errorMsg}`);
       setMessage(errorMsg); }
+      
+    finally {
+      setLoading(false); 
+    }
   };
 
   const isAdmin=sessionStorage.getItem('isAdmin')==='true'
@@ -292,8 +299,21 @@ return Object.keys(newErrors).length===0;
 <button
           type="submit"
           className="w-80 m-auto bg-[#12396d] text-white font-poppins py-2 rounded hover:bg-blue-700"
+       disabled={loading}
         >
-          Save Product
+        {loading?(
+          <span className="flex items-center">
+      <svg className="animate-spin mr-2 h-5 w-5 text-white" viewBox="0 0 24 24">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="white" strokeWidth="4" fill="none" />
+        <path className="opacity-75" fill="white" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+      </svg>
+      Adding...
+      </span>
+
+        ):(
+         <span> Add Product</span>
+        )}
+         
         </button>
 
 </div>

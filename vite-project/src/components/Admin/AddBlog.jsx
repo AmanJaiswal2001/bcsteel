@@ -17,7 +17,7 @@ const AddBlog = () => {
   });
 
   const [validationErrors, setValidationErrors] = useState({});
-
+const [loading,setLoading]=useState("");
   const handleContentChange = (index, field, value) => {
     const updated = [...formData.content];
     updated[index][field] = value;
@@ -53,8 +53,8 @@ const AddBlog = () => {
       if (!block.type.trim()) {
         blockErrors.type = 'Title is required.';
       }else{
-        const wordCount = block.type.trim().split(/\s+/).length;
-      if (wordCount > 30) {
+        const wordCount = block.type.trim().length<1||block.type.trim().length>50;
+      if (!wordCount ) {
         blockErrors.type = 'Title should not exceed 30 words.';
       
       }
@@ -84,10 +84,10 @@ const AddBlog = () => {
 
     const isValid = validateContent();
     if (!isValid) {
-      toast.error('Please fix the errors before submitting.');
+      // toast.error('Please fix the errors before submitting.');
       return;
     }
-
+setLoading(true)
     try {
       const data = new FormData();
       if (imageFile.banerImage) data.append('banerImage', imageFile.banerImage);
@@ -107,6 +107,9 @@ const AddBlog = () => {
     } catch (error) {
       console.error(error);
       toast.error('Upload failed. Please try again.');
+    }
+    finally{
+      setLoading(false);
     }
   };
 
@@ -233,8 +236,19 @@ const AddBlog = () => {
 <button
           type="submit"
           className="bg-[#12396d] m-auto w-80 cursor-pointer text-lg font-poppins text-white px-6 py-4 rounded"
+        disabled={loading}
         >
-          Submit
+        {loading?(
+          <span className="flex items-center">
+      <svg className="animate-spin mr-2 h-5 w-5 text-white" viewBox="0 0 24 24">
+        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="white" strokeWidth="4" fill="none" />
+        <path className="opacity-75" fill="white" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z" />
+      </svg> Adding...
+      </span>
+        ):(
+          <span className=' font-poppins'>  Add Blog</span>
+        )}
+        
         </button>
 </div>
        

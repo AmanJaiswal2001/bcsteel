@@ -13,6 +13,7 @@ import { BlogCard } from './BlogCard';
 import Founder from './Founder';
 import ColorChangeOnScroll from './ColorChangeOnScroll';
 import Sliderbaner from './Sliderbaner';
+import Experience from './Experience';
 
 const Home = () => {
   const awardsRef = useRef(null);
@@ -53,7 +54,7 @@ const Home = () => {
 
       {/* Founder Section */}
       <section className="w-full bg-gray-50  overflow-hidden">
-        <Founder />
+        <Experience />
       </section>
     </div>
   );

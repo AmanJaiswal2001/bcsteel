@@ -50,7 +50,7 @@ const EditTestimonial = () => {
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value.trim(),
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -67,15 +67,27 @@ const EditTestimonial = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!formData.fullName.trim()) newErrors.fullName = 'Full name is required';
-    if (!formData.designation.trim()) newErrors.designation = 'Designation is required';
-    if (!formData.description.trim()) newErrors.description = 'Description is required';
-    if (!formData.rating) newErrors.rating = 'Rating is required';
-
+  
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = 'Full Name is required';
+    }
+  
+    if (!formData.designation.trim() || formData.designation.length < 1 || formData.designation.length > 20) {
+      newErrors.designation = 'Designation must be between 1 and 20 characters';
+    }
+  
+    if (!formData.description.trim() || formData.description.length < 1 || formData.description.length > 50) {
+      newErrors.description = 'Description must be between 1 and 50 characters';
+    }
+  
+    if (!formData.rating) {
+      newErrors.rating = 'Rating is required';
+    }
+  
     setError(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -100,6 +112,17 @@ const EditTestimonial = () => {
       setMessage(res.data.message || 'Testimonial updated successfully');
       toast.success('Testimonial updated successfully!');
       // navigate('/testimonials'); // Redirect after successful update
+     
+setFormData({
+  fullName: '',
+  picture: '',
+  designation: '',
+  rating: 0,
+  description: '',
+
+});
+setExistingImage(null);
+setError({});
     } catch (err) {
       setMessage(err.response?.data?.message || 'Error updating testimonial');
       toast.error(`Update failed. Please try again: ${err.response?.data?.error}`);

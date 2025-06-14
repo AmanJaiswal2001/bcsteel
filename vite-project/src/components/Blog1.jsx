@@ -45,8 +45,8 @@ await axios.delete(`${BASE_URL}/api/admin/deleteBlog/${id}`);
      <div className='w-full relative'>
      <img
         src={`${BASE_URL}/uploads/${blog.banerImage}`}
-        alt=""
-        className="w-full h-[500px] object-cover rounded-md mb-6"
+        alt="baner image"
+        className="w-full h-[500px] object-cover   mb-6"
       />
     
 <div className='absolute bottom-10 left-0 w-full '>
@@ -55,7 +55,7 @@ await axios.delete(`${BASE_URL}/api/admin/deleteBlog/${id}`);
 {
         blog.content.map((item)=>(
 <div>
-<p className='sm:text-5xl font-poppins text-white font-bold sm:px-20 px-5 text-xl   '>{item.type.split(' ')
+<p className='sm:text-5xl break-words font-poppins text-white font-bold sm:px-20 px-5 text-xl   '>{item.type.split(' ')
     .slice(0, 30).join(' ') + '...'}</p>
 </div>
         ))

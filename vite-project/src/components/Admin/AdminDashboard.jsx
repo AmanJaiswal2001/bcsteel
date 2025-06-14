@@ -86,7 +86,7 @@ await axios.delete(`${BASE_URL}/api/admin/deleteTestimonial/${id}`);
     console.log('First Testimonial Description:', testimonial[0].description);
   }
   return (
-    <div className="pt-0 flex bg-gray-100 h-screen ">
+    <div className="pt-0 p-0 flex bg-gray-100 h-screen ">
       {/* <h1 className="text-xl p-10 font-bold mb-4">Admin Dashboard</h1> */}
      <div className='h-96'>
      <AdminSidebar  />
@@ -94,10 +94,10 @@ await axios.delete(`${BASE_URL}/api/admin/deleteTestimonial/${id}`);
 
 
 
-<div className='w-full px-4  overflow-y-auto '>
+<div className='w-full px-4  pb-5 overflow-y-auto '>
 
 <div className=' p-5 rounded-sm  mt-0 '>
-<h1 className='font-bold font-poppins text-lg'>All Product ({products.length})</h1>
+<h1 className='font-bold font-poppins text-center md:text-start text-lg'>All Product ({products.length})</h1>
 
 
 
@@ -144,7 +144,7 @@ await axios.delete(`${BASE_URL}/api/admin/deleteTestimonial/${id}`);
  
 </div>
 
-<h1 className='font-bold mt-5 px-5 font-poppins text-lg'>All Blog ({blog.length})</h1>
+<h1 className='font-bold mt-5 px-5 font-poppins text-center md:text-start text-lg'>All Blog ({blog.length})</h1>
 
 
 <div className='w-full  p-5 mt-5  rounded-4xl  bg-white'>
@@ -176,7 +176,7 @@ isAdmin={true}
 </div>
 
 
-<h1 className='font-bold mt-5 px-5 font-poppins text-lg'>All Testimonial ({testimonial.length})</h1>
+<h1 className='font-bold mt-5 px-5 text-center md:text-start font-poppins text-lg'>All Testimonial ({testimonial.length})</h1>
 
 
 <div className='w-full  p-5 mt-5  rounded-4xl  bg-white'>

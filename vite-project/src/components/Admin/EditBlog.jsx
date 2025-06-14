@@ -106,11 +106,10 @@ const blockErrors={};
 if(!block.type.trim()){
   blockErrors.type="Title is required";
 }else {
-  const wordCount=block.type.trim().split(/\s+/).length;
-
-if(wordCount>30){
-  blockErrors.type="Title should not exceed 30 words"; 
-}
+  const wordCount = block.type.trim().length<1||block.type.trim().length>50;
+      if (wordCount ) {
+        blockErrors.type = 'Title should not exceed 50 words.';
+      }
 }
 const plainText = stripHtml(block.text).trim();
 if (!plainText) {
@@ -161,8 +160,13 @@ if(Object.keys(blockErrors).length>0){
         },
       });
 
+
+
       setMessage(res.data.message || "Product edit successfully");
       toast.success('Blog edit successfully!');
+      setFormData({content:[{type:'',text:'',items:['']}]});
+      setImageFile({ banerImage: null, sideImage: null });
+      setValidationErrors({});
     //   alert('Blog updated successfully');
     } catch (error) {
       console.error(error);
@@ -188,11 +192,20 @@ if(Object.keys(blockErrors).length>0){
         {/* Banner Image Input */}
         <div className="space-y-2">
   <label className="block font-semibold">Banner Image</label>
+  <button
+    type="button"
+    onClick={() => document.getElementById('banerImage').click()}
+    className="bg-black text-white px-4 py-2 rounded hover:bg-blue-700"
+  >
+    Upload Banner Image
+  </button>
   <input
+  id='banerImage'
     type="file"
     name="banerImage"
-    className="w-full border p-2 rounded"
+    className="w-full border p-2 rounded hidden"
     accept="image/*"
+
     onChange={handleFileChange}
     
   />
@@ -220,10 +233,20 @@ if(Object.keys(blockErrors).length>0){
 {/* Side Image Input */}
 <div className="space-y-2 mt-4">
   <label className="block font-semibold">Side Image</label>
+ <button 
+ type='button'
+ onClick={()=>document.getElementById('sideImage').click()}
+ className="bg-black text-white px-4 py-2 rounded hover:bg-blue-700"
+
+ >
+  Upload Side Image
+ </button>
+ 
   <input
+  id="sideImage"
     type="file"
     name="sideImage"
-    className="w-full border p-2 rounded"
+    className="w-full border p-2 rounded hidden"
     accept="image/*"
     onChange={handleFileChange}
   />
@@ -306,9 +329,9 @@ if(Object.keys(blockErrors).length>0){
 
         <button
           type="submit"
-          className="bg-green-600 text-white px-6 py-2 rounded"
+          className="bg-black text-white px-6 py-2 rounded"
         >
-          Save Changes
+          Update Blog
         </button>
       </form>
     </div>

@@ -9,6 +9,7 @@ import Home from './Home'
 import { BlogCard } from './BlogCard'
 import Experience from './Experience'
 import { Testimonial } from './Testimonial'
+import Founder from './Founder'
 
 const Layout = () => {
   return (
@@ -25,7 +26,7 @@ const Layout = () => {
     <Home/>
     {/* <Blog/> */}
     {/* <Video/> */}
-    <Experience/>
+    <Founder/>
     {/* <Workflow/> */}
     <div>
    <Testimonial/>

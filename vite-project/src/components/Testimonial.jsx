@@ -2,60 +2,8 @@ import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import useFetchTestimonial from "../hooks/useFetchTestimonial";
 
-// Mock data for testimonials
-// const testimonialList = [
-//   {
-//     author: {
-//       fullName: "Arvind Mehta",
-//       picture: "/testi.avif",
-//       designation: "Founder / CEO",
-//     },
-//     rating: 3.5,
-//     description:
-//       "Sonatek's technical team is incredibly responsive. Whether it's a custom steel specification or a logistics query, they are always ready to assist with complete professionalism.",
-//   },
-//   {
-//     author: {
-//       fullName: "RShruti Verma",
-// 	  picture: "/testi.avif",
-//       designation: "Project Engineer",
-//     },
-//     rating: 3.8,
-//     description:
-//       "Sonatek's technical team is incredibly responsive. Whether it's a custom steel specification or a logistics query, they are always ready to assist with complete professionalism.",
-//   },
-  
-//   {
-//     author: {
-//       fullName: "Neha Singh",
-// 	  picture: "/testi.avif",
-//       designation: "Sustainability Manager,",
-//     },
-//     rating: 4.5,
-//     description:
-//       "What impressed us most about Sonatek is their focus on sustainable sourcing and modern processing methods.",
-//   },
-//   {
-//     author: {
-//       fullName: "Ravi Deshmukh",
-// 	  picture: "/testi.avif",
-//       designation: "Operations Lead",
-//     },
-//     rating: 5.0,
-//     description:
-//       "Even after the order was fulfilled, Sonatek’s team ensured we had the necessary certifications, documentation, and post-delivery support. That level of care is rare in the steel industry",
-//   },
-//   {
-//     author: {
-//       fullName: "Rahul Khanna",
-// 	  picture: "/testi.avif",
-//       designation: "Tech Lead",
-//     },
-//     rating: 4.0,
-//     description:
-//       "The platform is intuitive and easy to navigate, making the entire process seamless and enjoyable.",
-//   }
-// ];
+
+
 
 
 
@@ -93,7 +41,8 @@ const Rating = ({ rating }) => {
 };
 
 // TestimonialItem component
-const TestimonialItem = ({ testimonial, isActive }) => (
+const TestimonialItem = ({ testimonial, isActive,BASE_URL }) => (
+  
   <div 
     className={`shadow-xl rounded-2xl w-full mt-4 h-64 transition-all duration-300 p-4 sm:p-6 
       ${isActive 
@@ -108,7 +57,7 @@ const TestimonialItem = ({ testimonial, isActive }) => (
       <div className="flex items-center">
         <div className="mr-2">
           <img
-            src={testimonial?.author?.picture}
+            src={`${BASE_URL}${testimonial?.author?.picture}`}
             alt={testimonial?.author?.fullName}
             className="rounded-full border w-12 h-12 sm:w-20 sm:h-20"
            
@@ -130,7 +79,7 @@ export const  Testimonial=()=> {
   const { testimonial, loading, error } = useFetchTestimonial([]);
   const [currentIndex, setCurrentIndex] = useState(1);
   // const [visibleTestimonials, setVisibleTestimonials] = useState([]);
-
+  const BASE_URL = import.meta.env.VITE_BACKEND_LIVE;
   const [isMobile, setIsMobile] = useState(false);
 
   // Check if the screen is mobile-sized
@@ -182,7 +131,7 @@ export const  Testimonial=()=> {
   if (error) return <div>Error loading testimonials</div>;
 
   return (
-    <section className=" px-10 w-[98%] py-5 sm:py-10 m-auto mt-5 sm:mt-0   border-t border-gray-900 bg-white  text-zinc-900 dark:text-white">
+    <section className=" px-10 w-[98%] py-5 sm:py-10 m-auto mt-5 sm:mt-0   bg-white  text-zinc-900 dark:text-white">
       <div className="  w-full  mx-auto">
         <div className="flex w-full justify-center md:mb-6">
           <div className="sm:w-full  text-center">
@@ -218,7 +167,7 @@ export const  Testimonial=()=> {
       }`}
     >
       <div className="w-full     md:w-[450px] ">
-        <TestimonialItem testimonial={item} isActive={item.isActive} />
+        <TestimonialItem testimonial={item} isActive={item.isActive} BASE_URL={BASE_URL} />
       </div>
     </div>
   ))}

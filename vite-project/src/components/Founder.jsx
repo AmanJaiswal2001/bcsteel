@@ -2,7 +2,7 @@ import React from 'react'
 import { motion } from "framer-motion"
 export const Founder = () => {
   return (
-    <div className="w-full flex flex-col gap-5 lg:flex-row justify-between sm:px-6 lg:px-10  sm:pt-8 lg:pt-0">
+    <div className="w-full mt-5 flex flex-col gap-5 lg:flex-row justify-between sm:px-6 lg:px-10  sm:pt-8 lg:pt-0">
     {/* Left Image Section */}
     <div className="w-full lg:w-[40%] flex justify-center sm:mb-8 lg:mb-0">
   <motion.div

@@ -39,7 +39,7 @@ const About = () => {
     <div>
         <div className="  w-full mb-20  pt-20 sm:pt-0">
         <div className="w-full relative">
-        <img className='w-full' src="/about.jpg" />
+        <img className='w-full h-full object-cover' src="/about.jpg" />
 <div className='flex items-center justify-center'>
 <p className='absolute text-white top-[50%] text-center font-extrabold flex items-center md:text-9xl  m-auto font-poppins'>About Us</p>
  
@@ -92,8 +92,10 @@ qualified professionals, we aim to engineer excellence in everything we do.</p>
 
 
       <div className='xl:w-[57%] w-full text-wrap flex flex-col sm:pt-5'>
-      <div className='w-full h-[500px] relative '>
-        <img className='w-full h-full transition-transform duration-500 ease-in-out hover:scale-110' src="/Galvalume.webp" />
+      <div className='w-full h-full relative '>
+        <img className='w-full object-cover h-full transition-transform duration-500 ease-in-out hover:scale-110'
+        
+         src="/Galvalume.webp" />
         <div className='flex absolute bottom-0 right-0'>
           <div ref={expRef} className='w-48 h-48 bg-[#12396d] flex flex-col'>
             <p className='font-poppins text-5xl text-white text-center pt-10'>{experience}+</p>
@@ -140,7 +142,7 @@ their product portfolio.	</p>
 
     <div className='lg:w-[49%] w-full xl:pl-5 text-wrap flex flex-col  '>
      <div className='w-full   relative '>
-     <img className='w-full h-full transition-transform duration-500 ease-in-out hover:scale-110 ' src="/coil-steel.jpg"/>
+     <img className='w-full h-full object-cover transition-transform duration-500 ease-in-out hover:scale-110 ' src="/coil-steel.jpg"/>
      
      
      </div>
@@ -181,8 +183,8 @@ their product portfolio.	</p>
 
 
     <div className='xl:w-[55%] pt-5 xl:pt-0 w-full text-wrap flex flex-col  '>
-     <div className='w-full   relative '>
-     <img className='w-full h-full transition-transform duration-500 ease-in-out hover:scale-110' src="/health.jpg"/>
+     <div className='w-full  h-full  relative '>
+     <img className='w-full h-full object-cover transition-transform duration-500 ease-in-out hover:scale-110' src="/health.jpg"/>
      
      
      </div>
@@ -203,27 +205,28 @@ their product portfolio.	</p>
     <br></br>
     <p className='text-4xl font-bold text-black mt-5 '>Health & Safety      </p>
 <p className='font-normal text-sm  pt-2 text-gray-600 font-poppins mt-5'>Safety is the utmost priority at Sonatech Steels. Everyone adheres to the policies and guidelines to ensure their well-being and the welfare of other people, property and environment. 	</p>
-<div className='mt-5 flex flex-col gap-1'>
+<div className='pt-5 flex flex-col  justify-center gap-2'>
 
-<div className='flex gap-2 items-center'>
-<svg className=' text-[#12396d] sm:w-5 sm:h-5 w-8' xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m10.6 16.6l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"/></svg>
+
+<div className='flex gap-2  '>
+<svg className='  text-[#12396d] sm:w-5 sm:h-5 w-8' xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m10.6 16.6l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"/></svg>
 <p className='font-poppins sm:text-sm  text-[12px] font-normal '>Comply with applicable legislation, protocols and regulations</p>
 </div>
-<div className='flex gap-2 items-center'>
+<div className='flex gap-2 '>
 <svg className=' text-[#12396d] sm:w-5 sm:h-5 w-8' xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m10.6 16.6l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"/></svg>
 <p className='font-poppins sm:text-sm  text-[12px] font-normal '>
 Report workplace hazards and take proactive action to mitigate potential incidents </p>
 </div>
 
-<div className='flex gap-2  sm:items-center'>
+<div className='flex gap-2  '>
 <svg className=' text-[#12396d] sm:w-5 sm:h-5 w-8' xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m10.6 16.6l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"/></svg>
 <p className='font-poppins sm:text-sm  text-[12px] font-normal '>Maintain fire protection and other emergency systems and facilities</p>
 </div>
-<div className='flex gap-2 items-center'>
+<div className='flex gap-2 '>
 <svg className=' text-[#12396d]  sm:w-5 sm:h-5 w-8' xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m10.6 16.6l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"/></svg>
 <p className='font-poppins sm:text-sm  text-[12px] font-normal '>Regular checking of internaional safety standards and procedures</p>
 </div>
-<div className='flex gap-2 items-center'>
+<div className='flex gap-2 '>
 <svg className='sm:w-5 sm:h-5  w-5 text-[#12396d] ' xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="m10.6 16.6l7.05-7.05l-1.4-1.4l-5.65 5.65l-2.85-2.85l-1.4 1.4zM12 22q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"/></svg>
 <p className='font-poppins sm:text-sm  text-[12px] font-normal '>Maintain Occupation Health Center (OHC)</p>
 </div>

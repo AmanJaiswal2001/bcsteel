@@ -13,8 +13,8 @@ const submenuMapping = {
     { label: "Cold Rolled Coils", path: "/coldRolled/coils" },
   ],
 
-  "Steel": [
-    { label: "Mild Steel", path: "/mildStainless" },
+  "All Product": [
+    { label: "See All", path: "/mildStainless" },
     // { label: "Stainless Steel", path: "/stainless" },
   ],
 };
@@ -67,7 +67,7 @@ const  DropdownMenu = ({menuItems=[],buttonName}) => {
 
   
        
-        <ul className=" absolute  space-y-2 pt-2  left-0 mt-0  bg-black/40   rounded shadow-lg z-50 ">
+        <ul className=" absolute  space-y-2 pt-0  left-0 mt-0  bg-black/40   rounded shadow-lg z-50 ">
           {menuItems.map((item) => (
            <>
             <li className=" hover:bg-black relative group " key={item}
@@ -90,7 +90,7 @@ const  DropdownMenu = ({menuItems=[],buttonName}) => {
               {/* Submenu */}
               {/* <div className="relative"> */}
               {submenuMapping[item] && subMenu === item &&  (
-                <ul className=" absolute space-y-2 pt-2  top-0 left-full w-56 bg-black/40  shadow-lg z-50"
+                <ul className=" absolute space-y-2 pt-0  top-0 left-full w-56 bg-black/40  shadow-lg z-50"
                  onMouseEnter={() => setSubMenu(item)} // Open submenu on hover
               onMouseLeave={() => setSubMenu(null)} // Close submenu when mouse leaves item
             
@@ -311,10 +311,11 @@ export default DropdownMenu;
 
       <li>
       <div className="flex items-center justify-center">
+      <a href="mailto:sonateksteels@gmail.com" target="_blank">
       <button className="w-40 h-14 font-poppins hover:bg-black border border-white  font-medium text-white  cursor-pointer  rounded-lg ">
         Help & support
       </button>
-  
+  </a>
       </div>
 
       </li>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import useFetchTestimonial from "../../hooks/useFetchTestimonial";
 import AdminSidebar from "./AdminSidebar";
 import { useNavigate } from "react-router-dom";
-
+const  BASE_URL=import.meta.env.VITE_BACKEND_LIVE
 // Rating component
 const Rating = ({ rating }) => {
   return (
@@ -37,16 +37,19 @@ const Rating = ({ rating }) => {
 
 // TestimonialItem component
 const TestimonialItem = ({ testimonial }) => (
+    
   <div className="shadow-xl rounded-lg bg-[#12396d] w-full mt-4 h-64 transition-all duration-300 p-4 sm:p-6  text-white">
     <div className="sm:mt-0 h-full">
       <Rating rating={testimonial.rating} />
-      <p className="sm:mb-6 sm:h-14 text-sm h-36 opacity-90">{testimonial.description}</p>
-      <div className="flex items-center">
-        <div className="mr-2">
+      <p className="sm:mb-6 text-wrap break-words sm:h-14 text-sm h-36 opacity-90">{testimonial.description}</p>
+      <div className="flex pb-5 items-center">
+        <div className="">
           <img
-            src={testimonial?.author?.picture}
-            alt={testimonial?.author?.fullName}
-            className="rounded-full border w-12 h-12 sm:w-20 sm:h-20"
+           src={`${BASE_URL}${testimonial.author.picture}`}
+  
+           
+            alt={testimonial.author.fullName}
+            className="rounded-full  object-cover w-12 h-12 sm:w-20 sm:h-20"
           />
         </div>
         <div>
@@ -63,7 +66,7 @@ const TestimonialItem = ({ testimonial }) => (
 // Main Testimonial component
 export const AdminTestimonialCard = () => {
   const { testimonial, loading, error } = useFetchTestimonial([]);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   // Check if the screen is mobile-sized
   useEffect(() => {
@@ -98,14 +101,14 @@ const navigate=useNavigate();
 const isAdmin=sessionStorage.getItem('isAdmin')==='true'
   return (
 
-    <div className="flex">
+    <div className="flex h-screen overflow-y-hidden">
     {isAdmin&&(
         <AdminSidebar/>
     )}
-  <section className=" w-ful  h-screen bg-gray-200     mt-5 sm:mt-0 border-t   text-zinc-900 dark:text-white">
+  <section className=" w-full  h-full bg-white  overflow-y-auto    sm:mt-0    ">
       <div className="w-full mx-auto p-10">
-        <div className="flex w-full justify-center md:mb-6">
-          <div className="sm:w-full text-start flex justify-between items-center">
+        <div className="flex w-full justify-between  ">
+          <div className="w-full text-start flex justify-between items-center">
             <h2 className="text-2xl text-black leading-none  font-bold sm:mb-4">
               Testimonial({testimonial.length})
             </h2>
@@ -115,7 +118,9 @@ const isAdmin=sessionStorage.getItem('isAdmin')==='true'
               className="bg-black text-white px-4 py-2 rounded hover:bg-blue-700"
               onClick={() => navigate('/createtestimonial')}
             >
-              Add Testimonial
+           {isMobile?<svg className='' width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M12 4V20M20 12L4 12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+</svg>:" Add Testimonial"}
             </button>
           </div>
         )}
