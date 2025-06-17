@@ -15,8 +15,8 @@ const HotCatCoilsDEl = () => {
 
 const [selectedThickness,setSelectedThickness]=useState(null);
 const [selectedWidth,setSelectedWidth]=useState(null);
-//  const [selectedLength,setSelectedLength]=useState(null);
-//  const[customLength,setcustomLength]=useState(null);
+  const [selectedLength,setSelectedLength]=useState(null);
+  const[customLength,setcustomLength]=useState(null);
 const[customNumber,setcustomNumber]=useState(null);
 const [isMobileOpen, setIsMobileOpen] = useState(false);
 const { id } = useParams();
@@ -28,18 +28,7 @@ const isAdmin = sessionStorage.getItem('isAdmin') === 'true';
 const { products, loading, error } = useFetchProducts();
 
 
-// useEffect(()=>{
-//   console.log("fetch data",products);
-// },[id])
 
-    // const thicknessValues = [
-    //     "1.6", "1.8", "2.",  "2.5",  "3.0",
-    //     "4.0",  "5.0", "5.8", "6.0",
-    //     "7.8", "8.0",  "10.0",
-    //     "12.0", 
-    //     "16.0", "20.0"
-    //   ];
-    //   const widthValues=["1250","1500","2000"]
 
       if (loading) return <div className="text-center text-3xl font-bold font-poppins pt-20">Loading...</div>;
       if (error) return <div className="text-center text-3xl font-bold font-poppins pt-20 text-red-600">Error loading products</div>;
@@ -50,19 +39,7 @@ const { products, loading, error } = useFetchProducts();
     
 
       console.log("fetch",product);
-      // Extract unique thickness values sorted ascending
     
-    
-      // Extract unique width values based on selectedThickness (if selected, else from all products)
-    
-    //   const lengthValues=["2500","3000","6300"]
-
-  
-  // const product = cardData[id];
-  // const productDetail=hotrolledproductdata[""];
-
-  // if (!products) return <div className="font-poppins text-3xl font-bold text-center">Product not found</div>;
-
 
   
 const handleDelete=async()=>{
@@ -123,7 +100,7 @@ catch (err) {
         //   setSelectedLength(null);
           setSelectedThickness(null)
           setSelectedWidth(null)
-        //   setcustomLength(null)
+           setcustomLength(null)
           setcustomNumber(null)
          }}
          
@@ -169,70 +146,91 @@ setSelectedWidth(null)
       Enter a value between 2500 to 12000</p> */}
 </div>
 
+<div className="flex flex-col  sm:flex-row sm:items-center gap-2 pt-2 w-full">
+  <div className="bg-[#f2f6ff] rounded-sm font-poppins w-[60%] sm:w-64 h-auto sm:h-16 flex flex-col sm:flex-row justify-between items-start sm:items-center px-2 py-1">
+    <label className="font-poppins text-[12px] font-semibold mb-1 sm:mb-0">
+      Custom Weight (mm):
+    </label>
+    <input 
+      type="text"
+      value={customLength}
+      onChange={(e) => {
+        if (selectedWidth && !selectedLength) {
+          const onlyNumsWithDecimal = e.target.value.replace(/[^0-9.]/g, "");
+          setcustomLength(onlyNumsWithDecimal);
+        }
+      }}
+      disabled={!selectedWidth || selectedLength}
+      className={`outline-none w-full sm:w-24 h-16 sm:h-10 p-2 rounded-sm border text-sm
+        ${
+          !selectedWidth || selectedLength
+            ? "bg-gray-400 text-gray-500 border-gray-500 cursor-not-allowed"
+            : "bg-white text-black border-gray-300"
+        }`}
+    />
+  </div>
+
+  <p className="text-[#262626] font-poppins text-xs sm:text-sm font-normal">
+    Enter a value custom length value
+  </p>
+</div>
 
 
-  <div className="pt-4">
-<p className="text-[#262626] font-poppins font-sm font-semibold">
-Specify quantity (In number of sheets)</p>
-<input 
-value={customNumber}
-onChange={(e) => {
-      if (selectedThickness && selectedWidth ) {
-        setcustomNumber(e.target.value.replace(/\D/g, ""));
+<div className="pt-4">
+  <p className="text-[#262626] font-poppins font-sm font-semibold">
+    Specify quantity (In number of sheets)
+  </p>
+  <input 
+    value={customNumber}
+    onChange={(e) => {
+      const value = e.target.value;
+      // Allow only digits and at most one dot
+      if (/^\d*\.?\d*$/.test(value)) {
+        setcustomNumber(value);
       }
     }}
-    onKeyDown={(e) => {
-      if (!(selectedThickness && selectedWidth )) {
-        e.preventDefault();
-      }
-    }}
-    onPaste={(e) => {
-      if (!(selectedThickness && selectedWidth )) {
-        e.preventDefault();
-      }
-    }}
-disabled={!selectedThickness&&selectedWidth}
-onClick={()=>{
-
-}}
- type="search" 
- className={`outline-none m-1 w-56 h-10 p-2 rounded-sm border 
-      ${selectedThickness && selectedWidth  ? "bg-white border-gray-400" : "bg-gray-200 border-gray-300 cursor-not-allowed"}`}
+    disabled={!(selectedThickness && selectedWidth && (selectedLength || customLength))} 
+    type="text"
+    className={`outline-none m-1 w-56 h-10 p-2 rounded-sm border 
+      ${(selectedThickness && selectedWidth && (selectedLength || customLength))
+        ? "bg-white border-gray-400"
+        : "bg-gray-200 border-gray-300 cursor-not-allowed"
+      }`}
     placeholder="Enter custom number"
   />
-
-
 </div>
-<div className="sm:flex items-center">
-<div className="sm:h-48  lg:w-80 w-52     sm:flex md:flex lg:flex flex-col gap-4  rounded-lg">
-<h1 className="font-poppins font-bold text-lg pt-4">Send the all details on whatsapp </h1>
+
+
+<div className="   sm:flex items-center ">
+<div className="sm:h-48  lg:w-80 w-52    sm:flex md:flex lg:flex flex-col gap-4  rounded-lg">
+<h1 className="font-poppins font-bold text-lg pt-4">Send the all details on Whatsapp </h1>
 {/* <a 
 > */}
       
         {/* whatapps buttom*/}
        <button 
-       className={`flex gap-2 items-center justify-center p-2 rounded-lg w-full sm:w-64 transition-colors duration-200
-  ${selectedThickness && selectedWidth || customNumber 
+       className={`flex gap-2 mt-2 items-center justify-center p-2 rounded-lg w-full sm:w-64 transition-colors duration-200
+  ${selectedThickness && selectedWidth && (selectedLength || customLength) || customNumber 
         ? 'bg-green-500 cursor-pointer' 
         : 'bg-gray-400 cursor-not-allowed'}`}
        onClick={() => {
-      if (selectedThickness && selectedWidth  || customNumber)
+      if (selectedThickness && selectedWidth && (selectedLength || customLength)  || customNumber)
       {
         window.open(
           `https://wa.me/918062960347?text=${encodeURIComponent(
-            `Product: ${product.name}\nThickness: ${selectedThickness} mm\nWidth: ${selectedWidth} mm \nQuantity: ${customNumber} sheets`
+            `Product: ${product.name}\nThickness: ${selectedThickness} mm\n Width: ${selectedWidth} mm  \n Weight: ${selectedLength || customLength}mm \nQuantity: ${customNumber} sheets`
           )}`,
           "_blank"
         );
 
         setSelectedThickness(null);
     setSelectedWidth(null);
-    //  setSelectedLength(null);
-    // setcustomLength("");
+     setSelectedLength(null);
+    setcustomLength("");
     setcustomNumber("");
       } 
     }}
-      disabled={!(selectedThickness && selectedWidth || customNumber)}    
+      disabled={!(selectedThickness && selectedWidth && (selectedLength || customLength) || customNumber)}    
     
     > <a  >
      <FaSquareWhatsapp
@@ -245,12 +243,14 @@ onClick={()=>{
 
       
         {/* whatapps buttom*/}
-        <div className="sm:-mt-4 mt-4 w-64">
+        <div className="   flex item-center ">
         <a href={`tel:${product.number}`} target="_blank">
-        <div className=" bg-[#12396d] gap-4 items-center  flex h-14    p-2 rounded-lg w-full sm:w-48 transition-colors duration-200">
+        <div className=" bg-[#12396d] gap-4 items-center  flex h-14    p-2 rounded-lg w-full sm:w-36 transition-colors duration-200">
    
-      <svg className=" rounded-full  text-white  p-1 h-10 w-10 border " xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19.95 21q-3.125 0-6.187-1.35T8.2 15.8t-3.85-5.55T3 4.05V3h5.9l.925 5.025l-2.85 2.875q.55.975 1.225 1.85t1.45 1.625q.725.725 1.588 1.388T13.1 17l2.9-2.9l5 1.025V21z"/></svg>
-      <span className="text-white font-lg font-medium font-poppins">Call Now</span>
+        <svg className="text-white" width="24" height="24" viewBox="0 0 24 24" fill="#12396d" xmlns="http://www.w3.org/2000/svg">
+<path d="M14 6.34141C15.7048 6.94398 17.056 8.29517 17.6586 10M14.9655 3.5C17.5505 4.40178 19.5982 6.44948 20.5 9.03451M11.581 13.419C10.4831 12.3211 9.6162 11.0797 8.98026 9.75516C8.92556 9.64123 8.89821 9.58426 8.8772 9.51218C8.80252 9.25601 8.85616 8.94146 9.0115 8.72452C9.05521 8.66347 9.10744 8.61125 9.21189 8.5068C9.53133 8.18736 9.69105 8.02764 9.79547 7.86703C10.1893 7.26134 10.1893 6.4805 9.79547 5.87481C9.69104 5.7142 9.53133 5.55448 9.21189 5.23504L9.03383 5.05699C8.54825 4.5714 8.30546 4.32861 8.0447 4.19672C7.52611 3.93443 6.91369 3.93443 6.3951 4.19672C6.13434 4.32861 5.89155 4.57141 5.40597 5.05699L5.26193 5.20102C4.77801 5.68494 4.53605 5.92691 4.35126 6.25587C4.1462 6.6209 3.99876 7.18785 4.00001 7.60653C4.00113 7.98385 4.07432 8.24172 4.22071 8.75746C5.00738 11.5291 6.49168 14.1445 8.6736 16.3264C10.8555 18.5083 13.4709 19.9926 16.2425 20.7793C16.7583 20.9257 17.0162 20.9989 17.3935 21C17.8121 21.0012 18.3791 20.8538 18.7441 20.6487C19.0731 20.4639 19.3151 20.222 19.799 19.7381L19.943 19.594C20.4286 19.1084 20.6714 18.8657 20.8033 18.6049C21.0656 18.0863 21.0656 17.4739 20.8033 16.9553C20.6714 16.6945 20.4286 16.4518 19.943 15.9662L19.765 15.7881C19.4455 15.4687 19.2858 15.309 19.1252 15.2045C18.5195 14.8107 17.7387 14.8107 17.133 15.2045C16.9724 15.309 16.8126 15.4687 16.4932 15.7881C16.3888 15.8926 16.3365 15.9448 16.2755 15.9885C16.0585 16.1438 15.744 16.1975 15.4878 16.1228C15.4157 16.1018 15.3588 16.0744 15.2448 16.0197C13.9203 15.3838 12.6789 14.5169 11.581 13.419Z" stroke="white" stroke-width="2" stroke-linecap="round"/>
+</svg>
+   <span className="text-white font-lg text-center font-medium font-poppins">Call Now</span>
 
       </div> 
       </a>

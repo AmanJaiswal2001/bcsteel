@@ -209,7 +209,7 @@ export const CommonFilter = ({
 export const ThicknessGrid=({values,title,onSelect,selected})=>{
   return(
     <>
-   <div className='flex flex-col justify-between gap-0 mt-2 '>
+   <div className='flex   flex-col justify-between gap-0 mt-2 '>
     <p className='font-poppins text-[1rem] font-semibold'>{title} (mm)</p>
     {!selected && (
   <span className="text-orange-600 font-poppins  text-[12px]  lg:text-[1rem]">
@@ -237,7 +237,7 @@ export const ThicknessGrid=({values,title,onSelect,selected})=>{
 export const WidthGrid=({values,title,selected,onSelect, disable,showMessage })=>{
   return(
     <>
-     <div className='flex flex-col justify-between gap-0 mt-2 '>
+     <div className='flex flex-col  justify-between gap-0 mt-3  '>
          <p className='font-poppins text-[1rem] font-semibold ' >{title} (mm)</p>
    
     {showMessage  && (
@@ -246,7 +246,7 @@ export const WidthGrid=({values,title,selected,onSelect, disable,showMessage })=
           </span>
         )}
         </div>
-    <div className={`grid grid-cols-6 sm:grid-cols-5 md:grid-cols-8 gap-2 w-full ${disable ? 'opacity-50 pointer-events-none' : ''}`}>
+    <div className={`grid grid-cols-6 -mt-2 sm:grid-cols-5 md:grid-cols-8 gap-2 w-full ${disable ? 'opacity-50 pointer-events-none' : ''}`}>
     
       {values.map((value, index) => (
         <button
