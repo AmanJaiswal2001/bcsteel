@@ -58,6 +58,13 @@ const EditBlog = () => {
     setFormData({ ...formData, content: updated });
   };
 
+  
+  const removeItem = (blockIndex, itemIndex) => {
+    const updated = [...formData.content];
+    updated[blockIndex].items.splice(itemIndex, 1);
+    setFormData({ ...formData, content: updated });
+  };
+  
  
   const handleItemChange = (cIndex, iIndex, value) => {
     const updated = [...formData.content];
@@ -106,20 +113,27 @@ const blockErrors={};
 if(!block.type.trim()){
   blockErrors.type="Title is required";
 }else {
-  const wordCount = block.type.trim().length<1||block.type.trim().length>50;
-      if (wordCount ) {
-        blockErrors.type = 'Title should not exceed 50 words.';
+  const wordCount = block.type.trim().length>1&&block.type.trim().length<50;
+      if (!wordCount ) {
+        blockErrors.type = 'Title should not exceed 50 character.';
       }
 }
 const plainText = stripHtml(block.text).trim();
 if (!plainText) {
   blockErrors.text = 'Text content is required.';
 }
+const nonEmptyTags = block.items.filter(tag => tag.trim() !== '');
+const hasEmptyTag = block.items.some(tag => tag.trim() === '');
+const hasLongTag = block.items.some(tag => tag.length > 10);
 
 
-const nonEmptyTags=block.items.filter(tag => tag.trim()!=='');
-if(nonEmptyTags.length===0){
-  blockErrors.items="At least one tag is required";
+
+if (nonEmptyTags.length === 0) {
+  blockErrors.items = 'At least one tag is required.';
+} else if (hasEmptyTag) {
+  blockErrors.items = 'Please fill all tags.';
+} else if (hasLongTag) {
+  blockErrors.items = 'Tags must be max 10 characters.';
 }
 if(Object.keys(blockErrors).length>0){
   errors[index]=blockErrors;
@@ -296,15 +310,26 @@ if(Object.keys(blockErrors).length>0){
             <div className="space-y-2">
               <label className="block font-semibold">Items</label>
               {block.items.map((item, iIndex) => (
-                <input
-                  key={iIndex}
-                  type="text"
-                  placeholder={`Item ${iIndex + 1}`}
-                  className="w-full border p-2 rounded"
-                  value={item}
-                  onChange={(e) => handleItemChange(cIndex, iIndex, e.target.value)}
-                />
-              ))}
+                <div key={iIndex} className="flex items-center gap-2">
+      <input
+        type="text"
+        placeholder={`Tag ${iIndex + 1}`}
+        className="w-full border p-2 rounded"
+        value={item}
+        maxLength={10}
+        onChange={(e) => handleItemChange(cIndex, iIndex, e.target.value)}
+      />
+      {block.items.length > 1 && (
+        <button
+          type="button"
+          onClick={() => removeItem(cIndex, iIndex)}
+          className="text-red-500 text-sm"
+        >
+          Remove
+        </button>
+      )}
+    </div>
+        ))}
               {validationErrors[cIndex]?.items && (
         <p className="text-red-500 text-sm mt-1">{validationErrors[cIndex].items}</p>
       )}
@@ -326,6 +351,8 @@ if(Object.keys(blockErrors).length>0){
         >
           + Add Content Block
         </button> */}
+
+
 
         <button
           type="submit"

@@ -80,10 +80,67 @@ res.status(200).json({
 
 }
 
+const getAllAdmins = async (req, res) => {
+  try {
+    const admins = await Admin.find().select("-password"); // password hide
+    res.status(200).json({ data: admins });
+  } catch (err) {
+    res.status(500).json({ message: "Error fetching admins", error: err.message });
+  }
+};
+
+
+const getAdminById=async (req,res)=>{
+  const {id}=req.params;
+  try{ 
+    const admin=await Admin.findById(id).select("-password")
+    if (!admin) return res.status(404).json({ message: "Admin not found" });
+    res.status(200).json({ data: admin });
+  }catch (err) {
+    res.status(500).json({ message: "Error fetching admin", error: err.message });
+  }
+}
+
+const updateAdmin = async (req, res) => {
+  const { id } = req.params;
+  const { FullName, userName, email, password } = req.body;
+
+  try {
+    const admin = await Admin.findById(id);
+    if (!admin) return res.status(404).json({ message: "Admin not found" });
+
+    if (FullName) admin.FullName = FullName;
+    if (userName) admin.userName = userName;
+    if (email) admin.email = email;
+    if (password) {
+      admin.password = await bcrypt.hash(password, 10);
+    }
+
+    await admin.save();
+
+    res.status(200).json({ message: "Admin updated", data: admin });
+  } catch (err) {
+    res.status(500).json({ message: "Error updating admin", error: err.message });
+  }
+};
+
+const deleteAdmin = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const admin = await Admin.findByIdAndDelete(id);
+    if (!admin) return res.status(404).json({ message: "Admin not found" });
+
+    res.status(200).json({ message: "Admin deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ message: "Error deleting admin", error: err.message });
+  }
+};
 
 
 
 
 
 
-module.exports = { registerAdmin,loginAdmin };
+
+module.exports = { registerAdmin,loginAdmin ,getAllAdmins,getAdminById,updateAdmin,deleteAdmin};

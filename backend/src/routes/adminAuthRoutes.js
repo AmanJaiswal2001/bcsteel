@@ -2,10 +2,14 @@ const express =require('express');
 
 const router=express.Router();
 
-const {registerAdmin,loginAdmin} =require('../controllers/adminAuthController');
+const {registerAdmin,loginAdmin, getAllAdmins, getAdminById, updateAdmin, deleteAdmin} =require('../controllers/adminAuthController');
 
 router.post('/adminRegister',registerAdmin);
 router.post('/adminlogin',loginAdmin);
+router.get('/getAllAdmin',getAllAdmins);
+router.get('/getAdmin/:id',getAdminById);
+router.put('/adminUpdate/:id',updateAdmin);
+router.delete('/adminDelete/:id',deleteAdmin);
 module.exports = router;
 
 

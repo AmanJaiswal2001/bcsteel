@@ -146,9 +146,9 @@ const AdminSidebar = () => {
             </Link>
 
             <Link
-              to="#"
+              to="/adminalluser"
               className={`flex items-center w-full lg:h-[40px] h-[30px] rounded-[20px] hover:border hover:border-gray-300 text-center transition-all duration-300 px-3 ${
-                isActive('#')
+                isActive('/adminalluser')
                   ? 'bg-white text-black outline border-none font-bold'
                   : 'bg-transparent'
               }`}

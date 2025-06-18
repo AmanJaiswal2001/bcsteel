@@ -44,6 +44,13 @@ const [loading,setLoading]=useState("");
     setFormData({ ...formData, content: updated });
   };
 
+  const removeItem = (blockIndex, itemIndex) => {
+    const updated = [...formData.content];
+    updated[blockIndex].items.splice(itemIndex, 1);
+    setFormData({ ...formData, content: updated });
+  };
+  
+
   const validateContent = () => {
     const errors = {};
     formData.content.forEach((block, index) => {
@@ -53,9 +60,9 @@ const [loading,setLoading]=useState("");
       if (!block.type.trim()) {
         blockErrors.type = 'Title is required.';
       }else{
-        const wordCount = block.type.trim().length<1||block.type.trim().length>50;
+        const wordCount = block.type.trim().length>1&&block.type.trim().length<50;
       if (!wordCount ) {
-        blockErrors.type = 'Title should not exceed 30 words.';
+        blockErrors.type = 'Title should not exceed 50 character.';
       
       }
       }
@@ -63,9 +70,16 @@ const [loading,setLoading]=useState("");
         blockErrors.text = 'Text content is required.';
       }
       const nonEmptyTags = block.items.filter(tag => tag.trim() !== '');
-      if (nonEmptyTags.length === 0) {
-        blockErrors.items = 'At least one tag is required.';
-      }
+  const hasEmptyTag = block.items.some(tag => tag.trim() === '');
+  const hasLongTag = block.items.some(tag => tag.length > 10);
+
+  if (nonEmptyTags.length === 0) {
+    blockErrors.items = 'At least one tag is required.';
+  } else if (hasEmptyTag) {
+    blockErrors.items = 'Please fill all tags.';
+  } else if (hasLongTag) {
+    blockErrors.items = 'Tags must be max 10 characters.';
+  }
       if (Object.keys(blockErrors).length > 0) {
         errors[index] = blockErrors;
       }
@@ -184,7 +198,7 @@ setLoading(true)
             <h1 className='font-poppins text-lg font-semibold'>Title*</h1>
             <input
               type="text"
-              placeholder="Type (max 30 words)"
+              placeholder="Type (max 50 character)"
               className="w-full p-2 border rounded"
               value={block.type}
               onChange={(e) => handleContentChange(cIndex, 'type', e.target.value)}
@@ -207,29 +221,40 @@ setLoading(true)
             </div>
 
             <div className="space-y-2">
-              <label className="block font-semibold font-poppins">Tags*</label>
-              {block.items.map((item, iIndex) => (
-                <input
-                  key={iIndex}
-                  type="text"
-                  placeholder={`tags ${iIndex + 1}`}
-                  className="w-full border p-2 rounded"
-                  value={item}
-                  onChange={(e) => handleItemChange(cIndex, iIndex, e.target.value)}
-                  // required
-                />
-              ))}
-              {validationErrors[cIndex]?.items && (
-        <p className="text-red-500 text-sm mt-1">{validationErrors[cIndex].items}</p>
+  <label className="block font-semibold font-poppins">Tags*</label>
+  {block.items.map((item, iIndex) => (
+    <div key={iIndex} className="flex items-center gap-2">
+      <input
+        type="text"
+        placeholder={`Tag ${iIndex + 1}`}
+        className="w-full border p-2 rounded"
+        value={item}
+        maxLength={10}
+        onChange={(e) => handleItemChange(cIndex, iIndex, e.target.value)}
+      />
+      {block.items.length > 1 && (
+        <button
+          type="button"
+          onClick={() => removeItem(cIndex, iIndex)}
+          className="text-red-500 text-sm"
+        >
+          Remove
+        </button>
       )}
-              <button
-                type="button"
-                onClick={() => addItem(cIndex)}
-                className="text-blue-500 font-poppins text-sm"
-              >
-                + Add Item
-              </button>
-            </div>
+    </div>
+  ))}
+  {validationErrors[cIndex]?.items && (
+    <p className="text-red-500 text-sm mt-1">{validationErrors[cIndex].items}</p>
+  )}
+  <button
+    type="button"
+    onClick={() => addItem(cIndex)}
+    className="text-blue-500 font-poppins text-sm"
+  >
+    + Add Tag
+  </button>
+</div>
+
           </div>
         ))}
 <div className='flex'>

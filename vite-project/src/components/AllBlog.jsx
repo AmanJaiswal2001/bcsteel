@@ -41,6 +41,11 @@ const AllBlog = () => {
   const uniqueKeywords = Object.entries(keywordMap);
   const filteredBlogs = activeKeyword ? keywordMap[activeKeyword] : blog;
 
+  
+    const [showSidebar, setShowSidebar] = useState(false);
+  
+    const limitedKeywords = uniqueKeywords.slice(0, 20);
+
   return (
     <div className="flex w-screen h-screen overflow-hidden">
       {isAdmin && <AdminSidebar />}
@@ -71,32 +76,88 @@ const AllBlog = () => {
           {error && <p className="text-center text-red-500">Failed to load blogs</p>}
 
           {/* Keywords */}
-          <div className="flex flex-wrap justify-center mt-5">
+          <div>
+      {/* Main tag buttons (first 20 only) */}
+      <div className="flex flex-wrap justify-center mt-5">
+        <button
+          onClick={() => setActiveKeyword(null)}
+          className={`text-sm px-4 py-2 m-2 rounded-full font-medium ${
+            activeKeyword === null
+              ? 'bg-black text-white'
+              : 'bg-[#12396d] text-white hover:bg-white hover:text-black hover:outline'
+          }`}
+        >
+          See All
+        </button>
+
+        {/* Show first 20 tags */}
+        {limitedKeywords.map(([word, posts], i) => (
+          <button
+            key={i}
+            onClick={() => setActiveKeyword(activeKeyword === word ? null : word)}
+            className={`text-sm px-10 py-2 m-2 rounded-full font-medium ${
+              activeKeyword === word
+                ? 'bg-black text-white'
+                : 'bg-[#12396d] text-white hover:bg-white hover:text-black hover:outline'
+            }`}
+          >
+            {word} {posts.length > 1 && `(${posts.length})`}
+          </button>
+        ))}
+
+        {/* Sidebar open trigger */}
+        <button
+          onClick={() => setShowSidebar(true)}
+          className="text-sm px-4 py-2 m-2 rounded-full font-medium bg-gray-300 hover:bg-gray-400"
+        >
+          View All Tags
+        </button>
+      </div>
+
+      {/* Sidebar */}
+      {showSidebar && (
+        <div className="fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-50 p-4 overflow-y-auto">
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-lg font-semibold">All Tags</h2>
+            <button onClick={() => setShowSidebar(false)} className="text-gray-500 hover:text-black">✕</button>
+          </div>
+
+          <button
+            onClick={() => {
+              setActiveKeyword(null);
+              setShowSidebar(false);
+            }}
+            className={`text-sm px-4 py-2 mb-2 rounded-full font-medium w-full text-left ${
+              activeKeyword === null
+                ? 'bg-[#12396d] text-white'
+               : 'bg-gray-100 text-black hover:bg-white hover:outline hover:text-black'
+              }`}
+          >
+            See All
+          </button>
+
+          {uniqueKeywords.map(([word, posts], i) => (
             <button
-              onClick={() => setActiveKeyword(null)}
-              className={`text-sm px-4 py-2 m-2 rounded-full font-medium ${
-                activeKeyword === null
-                  ? 'bg-black text-white'
-                  : 'bg-[#12396d] text-white hover:bg-white hover:text-black hover:outline'
+              key={i}
+              onClick={() => {
+                setActiveKeyword(word);
+                setShowSidebar(false);
+              }}
+              className={`text-sm px-4 py-2 mb-2 rounded-full font-medium w-full text-left ${
+                activeKeyword === word
+                  ? 'bg-[#12396d] text-white'
+                  : 'bg-gray-100 text-black hover:bg-white hover:outline hover:text-black'
               }`}
             >
-              See All
+              {word} {posts.length > 1 && `(${posts.length})`}
             </button>
+          ))}
+        </div>
+      )}
+    </div>
+ 
 
-            {uniqueKeywords.map(([word, posts], i) => (
-              <button
-                key={i}
-                onClick={() => setActiveKeyword(activeKeyword === word ? null : word)}
-                className={`text-sm px-10 py-2 m-2 rounded-full font-medium ${
-                  activeKeyword === word
-                    ? 'bg-black text-white'
-                    : 'bg-[#12396d] text-white hover:bg-white hover:text-black hover:outline'
-                }`}
-              >
-                {word} {posts.length > 1 && `(${posts.length})`}
-              </button>
-            ))}
-          </div>
+
 
           {/* Blog Grid */}
           <div className="grid sm:grid-cols-2 grid-cols-1 mt-10 mb-10 gap-10">

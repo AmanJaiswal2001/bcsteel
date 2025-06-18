@@ -40,6 +40,9 @@ import AdminTestimonial from "./components/Admin/AdminTestimonial";
 import EditTestimonial from "./components/Admin/EditTestimonial";
 import AdminTestimonialDetail from "./components/Admin/AdminTestimonialDetail";
 import { AdminTestimonialCard } from "./components/Admin/AdminTestinomialCard";
+import UserDetails from "./components/Admin/UserDetails";
+import EditAdmin from "./components/Admin/EditAdmin";
+import AddAdmin from "./components/Admin/AddAdmin";
 
 const matchPath = (path, pathname) => {
   if (path.includes(':id')) {
@@ -67,7 +70,7 @@ const AppLayout = () => {
     "/createtestimonial",
     "/edittestimonial/:id",
     "/adminTestimonialdetails",
-    "/adminTestimonialcard"
+    "/adminTestimonialcard","/adminalluser","/createadmin","/editUser/:id","/delete/:id"
   ];
 
   const shareAdminPaths=["/allblogs","/allProduct","/coilproduct/:id"
@@ -164,6 +167,11 @@ const appRouter = createBrowserRouter([
  {path:"/edittestimonial/:id",element:<EditTestimonial/>},  
  {path:"/adminTestimonialdetails",element:<AdminTestimonialDetail/>}, 
  {path:"/adminTestimonialcard",element:<AdminTestimonialCard/>}, 
+ {path:"/adminalluser",element:<UserDetails/>}, 
+ {path:"/createadmin",element:<AddAdmin/>}, 
+ {path:"/editUser/:id",element:<EditAdmin/>}, 
+ {path:"/delete/:id",element:<UserDetails/>}, 
+
 
     ],
   },

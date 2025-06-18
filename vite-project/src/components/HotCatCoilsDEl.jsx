@@ -203,7 +203,7 @@ setSelectedWidth(null)
 
 <div className="   sm:flex items-center ">
 <div className="sm:h-48  lg:w-80 w-52    sm:flex md:flex lg:flex flex-col gap-4  rounded-lg">
-<h1 className="font-poppins font-bold text-lg pt-4">Send the all details on Whatsapp </h1>
+<h1 className="font-poppins font-bold text-lg pt-4">Send  all details on Whatsapp </h1>
 {/* <a 
 > */}
       

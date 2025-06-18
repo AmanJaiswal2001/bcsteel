@@ -56,7 +56,7 @@ await axios.delete(`${BASE_URL}/api/admin/deleteBlog/${id}`);
         blog.content.map((item)=>(
 <div>
 <p className='sm:text-5xl break-words font-poppins text-white font-bold sm:px-20 px-5 text-xl   '>{item.type.split(' ')
-    .slice(0, 30).join(' ') + '...'}</p>
+    .slice(0, 30).join(' ') + ''}</p>
 </div>
         ))
       }
@@ -111,30 +111,40 @@ await axios.delete(`${BASE_URL}/api/admin/deleteBlog/${id}`);
         );
       })}
 
+      {blog.content.map((block, bIndex) => (
+  <div className="flex flex-wrap gap-2 mt-4" key={bIndex}>
+    {block.items.map((item, iIndex) => (
+      <button
+        key={iIndex}
+        className="bg-[#12396d] w-40 text-white px-4 py-2 rounded-full text-sm font-poppins   hover:outline"
+      >
+        {item}
+      </button>
+    ))}
+  </div>
+))}
 
-      {
-        blog.content.map((item)=>(
-<div>
-<p className='text-lg font-poppins  font-medium'>{item.items}</p>
+
 </div>
-        ))
+
+<motion.div
+  className="sm:w-1/2 flex justify-center items-center"
+  whileHover={{ scale: 1.2 }}
+  whileTap={{ scale: 0.8 }}
+>
+  {blog.sideImage && (
+    <img
+      src={
+        blog.sideImage.startsWith('http')
+          ? blog.sideImage
+          : `${BASE_URL}/uploads/${blog.sideImage}`
       }
-</div>
-
-<motion.div className='sm:w-1/2  whileHover={{ scale: 1.2 }}
-            whileTap={{ scale: 0.8 }}'>
-{blog.sideImage && (
-        <img
-          src={
-            blog.sideImage.startsWith('http')
-              ? blog.sideImage
-              : `${BASE_URL}/uploads/${blog.sideImage}`
-          }
-          alt="Side"
-          className="w-full h-96 object-cover rounded mt-10 transition-transform duration-500 ease-in-out hover:scale-110"
-        />
-      )}
+      alt="Side"
+      className="max-h-[500px] w-auto object-contain rounded mt-10 transition-transform duration-500 ease-in-out hover:scale-110"
+    />
+  )}
 </motion.div>
+
 
 </div>
 
