@@ -71,14 +71,14 @@ const [loading,setLoading]=useState("");
       }
       const nonEmptyTags = block.items.filter(tag => tag.trim() !== '');
   const hasEmptyTag = block.items.some(tag => tag.trim() === '');
-  const hasLongTag = block.items.some(tag => tag.length > 10);
+  const hasLongTag = block.items.some(tag => tag.length > 20);
 
   if (nonEmptyTags.length === 0) {
     blockErrors.items = 'At least one tag is required.';
   } else if (hasEmptyTag) {
     blockErrors.items = 'Please fill all tags.';
   } else if (hasLongTag) {
-    blockErrors.items = 'Tags must be max 10 characters.';
+    blockErrors.items = 'Tags must be max 20 characters.';
   }
       if (Object.keys(blockErrors).length > 0) {
         errors[index] = blockErrors;

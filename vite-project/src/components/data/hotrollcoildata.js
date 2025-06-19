@@ -1,7 +1,7 @@
 const hotrollcoildata = {
     id: "hotroll-jspl-001",
     title: "Hot Rolled Steel Sheets",
-    brand: "JSW Steel",
+    brand: "SAIL",
     sheetWeight: "As per order. Density of steel taken as 0.0081 g/mm3",
     supplyCondition: [
       "As rolled",

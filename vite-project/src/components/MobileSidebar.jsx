@@ -65,7 +65,7 @@ export const MobileSidebar = () => {
         )}
       </AnimatePresence>
 
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {isOpen && (
           <motion.button
             key="close-btn"
@@ -87,7 +87,7 @@ export const MobileSidebar = () => {
             </svg>
           </motion.button>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
 
       {/* Sidebar - with stopPropagation to prevent clicks inside from closing */}
       <motion.div
@@ -99,6 +99,23 @@ export const MobileSidebar = () => {
         exit={{ x: "-100%" }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
       >
+
+<motion.button
+    key="close-btn"
+    onClick={closeSidebar}
+    className="absolute top-1 right-4 z-50 p-2 text-white rounded-full shadow-md"
+    initial={{ opacity: 0, scale: 0.8 }}
+    animate={{ opacity: 1, scale: 1 }}
+    exit={{ opacity: 0, scale: 0.8 }}
+    transition={{ duration: 0.2 }}
+  >
+    <svg width="48" height="48" viewBox="0 0 24 24">
+      <path
+        fill="#fff"
+        d="m12 13.4l2.9 2.9q.275.275.7.275t.7-.275t.275-.7t-.275-.7L13.4 12l2.9-2.9q.275-.275.275-.7t-.275-.7t-.7-.275t-.7.275L12 10.6L9.1 7.7q-.275-.275-.7-.275t-.7.275t-.275.7t.275.7l2.9 2.9l-2.9 2.9q-.275.275-.275.7t.275.7t.7.275t.7-.275z"
+      />
+    </svg>
+  </motion.button>
         {/* Logo section */}
         <div className="flex items-center px-4 pt-5 justify-between text-white">
           <div className="w-[14rem]">

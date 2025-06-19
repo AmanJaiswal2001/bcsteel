@@ -52,7 +52,7 @@ const Experience = () => {
   return (
     <div
       ref={sectionRef}
-      className="w-[96%] mx-auto pt-0 flex flex-col lg:flex-row justify-between sm:gap-10  gap-0 sm:mt-20  mt-10 border-t border-gray-200 "
+      className="w-[96%] mx-auto pt-0 flex flex-col lg:flex-row justify-between sm:gap-10  gap-0 sm:mt-20  mt-10 border-t border-gray-200 border-b border-gray-200 "
     >
       {/* Left Column */}
       <div className="w-full lg:w-[40%] pt-10 sm:px-10 flex flex-col items-center  border-gray-200 lg:border-r">

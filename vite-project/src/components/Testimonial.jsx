@@ -57,9 +57,9 @@ const TestimonialItem = ({ testimonial, isActive,BASE_URL }) => (
       <div className="flex items-center">
         <div className="mr-2">
           <img
-            src={`${BASE_URL}${testimonial?.author?.picture}`}
+            src={`${BASE_URL}${testimonial.author.picture}`}
             alt={testimonial?.author?.fullName}
-            className="rounded-full border w-12 h-12 sm:w-20 sm:h-20"
+            className="rounded-full  w-12 h-12 sm:w-20 sm:h-20"
            
           />
         </div>
