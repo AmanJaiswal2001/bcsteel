@@ -100,8 +100,9 @@ const CRCoils = () => {
 
   const coldColis = products.filter((p) => {
     // console.log("Checking product:", p);
-    return   p.type.toLowerCase().includes("coil") && // matches 'hotrolledcoil', 'coldcoil', etc.
-    p.name.toLowerCase().includes("cold")
+    return   p.type.toLowerCase().includes("coldrolledcoil") 
+    // && // matches 'hotrolledcoil', 'coldcoil', etc.
+    // p.name.toLowerCase().includes("cold")
   });
 
 
@@ -377,7 +378,14 @@ const CRCoils = () => {
           width: '100%',
           flexWrap: 'nowrap',
         }}   >
-            {coldColis.map((item, index) => (
+            {loading?
+              (
+  <div className="w-full text-center mt-10 text-[#12396d] font-poppins font-semibold">
+    Loading...
+  </div>)
+              
+              :
+              coldColis.map((item, index) => (
               <div 
                 key={index} 
                 className={`flex-shrink-0 sm:px-2 mx-auto   flex justify-center sm:mx-0 mt-5 snap-start`}

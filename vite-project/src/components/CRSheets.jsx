@@ -102,8 +102,9 @@ const CRSheets = () => {
 
   const coldSheet = products.filter((p) => {
     // console.log("Checking product:", p);
-    return   p.type.toLowerCase().includes("sheet") && // matches 'hotrolledcoil', 'coldcoil', etc.
-    p.name.toLowerCase().includes("cold")
+    return   p.type.toLowerCase().includes("coldrolledsheet") 
+    // && // matches 'hotrolledcoil', 'coldcoil', etc.
+    // p.name.toLowerCase().includes("cold")
   });
   return (
     <div className="w-full h-full">
@@ -404,7 +405,18 @@ const CRSheets = () => {
           width: '100%',
           flexWrap: 'nowrap',
         }}  >
-            {coldSheet
+          
+          
+          
+          
+            {loading? (
+  <div className="w-full text-center mt-10 text-[#12396d] font-poppins font-semibold">
+    Loading...
+  </div>)
+              
+              
+              
+              :coldSheet
             .map((item, index) => (
               <div 
                  key={index}
