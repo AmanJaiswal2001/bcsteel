@@ -72,12 +72,12 @@ const EditTestimonial = () => {
       newErrors.fullName = 'Full Name is required';
     }
   
-    if (!formData.designation.trim() || formData.designation.length < 1 || formData.designation.length > 20) {
+    if (!formData.designation.trim() || formData.designation.length < 1 || formData.designation.length > 50) {
       newErrors.designation = 'Designation must be between 1 and 20 characters';
     }
   
-    if (!formData.description.trim() || formData.description.length < 1 || formData.description.length > 50) {
-      newErrors.description = 'Description must be between 1 and 50 characters';
+    if (!formData.description.trim() || formData.description.length < 1 || formData.description.length > 140) {
+      newErrors.description = 'Description must be between 1 and 100 characters';
     }
   
     if (!formData.rating) {

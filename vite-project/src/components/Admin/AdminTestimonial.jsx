@@ -41,12 +41,12 @@ const AdminTestimonial = () => {
 
     if (!formData.fullName) formErrors.fullName = "Full Name is required";
 
-    if (!formData.designation || formData.designation.length < 1 || formData.designation.length > 20) {
+    if (!formData.designation || formData.designation.length < 1 || formData.designation.length > 50) {
       formErrors.designation = "Designation must be between 1 and 20 characters";
     }
 
-    if (!formData.description || formData.description.length < 1 || formData.description.length > 50) {
-      formErrors.description = "Description must be between 1 and 50 characters";
+    if (!formData.description || formData.description.length < 1 || formData.description.length > 140) {
+      formErrors.description = "Description must be between 1 and 100 characters";
     }
 
     if (!formData.rating) formErrors.rating = "Rating is required";
